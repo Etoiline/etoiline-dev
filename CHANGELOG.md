@@ -1,5 +1,8 @@
 # Changelog
 
+- Connect the project to the `etoiline-dev` GitHub repository and reconcile its existing
+  history for subsequent pushes.
+
 - Add a pnpm dependency lockfile alongside the npm lockfile.
 
 - Add repository-wide agent instructions for French documentation and application checks.
