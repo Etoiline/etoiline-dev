@@ -1,20 +1,20 @@
 # Changelog
 
+- Add a pnpm dependency lockfile alongside the npm lockfile.
+
 - Add repository-wide agent instructions for French documentation and application checks.
 - Define the validation workflow: update the changelog in English and immediately create an
   English Gitmoji commit without automatically pushing.
 
-## Non publié
-
 ## 0.0.0 — 2026-10-05
 
-### Ajouts
+### Added
 
-- Initialisation du projet avec Vite, React et TypeScript.
-- Configuration TypeScript stricte et vérification du code avec Oxlint.
-- Structure minimale : point d'entrée React, composant principal et styles de base.
-- Page de test pour vérifier le fonctionnement de Vite et React.
-- Commandes de développement, compilation et prévisualisation.
-- Installation des dépendances et verrouillage de leurs versions avec npm.
-- Documentation du démarrage local dans le README.
-- Exclusion des dépendances, fichiers compilés et fichiers locaux du suivi Git.
+- Initialize the project with Vite, React, and TypeScript.
+- Configure strict TypeScript checks and code linting with Oxlint.
+- Add the React entry point, main component, and base styles.
+- Add a starter page to verify that Vite and React work.
+- Add development, build, and preview commands.
+- Install dependencies and lock their versions with npm.
+- Document local setup in the README.
+- Exclude dependencies, build output, and local files from Git tracking.
