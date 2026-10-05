@@ -1,6 +1,8 @@
 # Changelog
 
-- Release version 0.1.0 and consolidate the changelog into a continuous list.
+## 0.1.0 - 2026-10-05
+
+- Document the release workflow with dated changelog sections and manifest versioning.
 - Add the responsive Etoiline portfolio featuring Mouv’Air, with accessible navigation,
   configurable project content, and about and contact sections.
 - Add local project previews, site metadata and favicon, and document portfolio customization.

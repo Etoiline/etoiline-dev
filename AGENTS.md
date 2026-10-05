@@ -31,6 +31,21 @@ Quand l'utilisateur valide le travail en disant « je valide » ou « jke valide
 5. Ne pas pousser le commit, sauf demande explicite de l'utilisateur.
 6. Après réussite, communiquer le hash et le message du commit.
 
+## Création d’une version
+
+Quand l’utilisateur demande une nouvelle version :
+
+1. Utiliser le champ `version` de `package.json` comme source de vérité et synchroniser
+   les deux occurrences de la version du projet dans `package-lock.json`.
+2. Regrouper les changements en attente sous un titre `## X.Y.Z - YYYY-MM-DD` dans
+   `CHANGELOG.md`, avec le numéro de version et la date du jour. Placer cette section
+   avant les versions précédentes, sans titre `Unreleased` ou `Non publié`.
+3. Conserver les sections de versions existantes et leurs entrées ; ne pas transformer
+   le changelog en une liste sans titres de versions.
+4. Créer un commit de version avec un message anglais commençant par `🔖`, puis un tag
+   Git `vX.Y.Z` sur ce commit.
+5. Ne pas pousser le commit ou le tag sans demande explicite.
+
 Les entrées de changelog et les messages de commit doivent rester concis et centrés sur les
 changements visibles ou importants pour le projet.
 

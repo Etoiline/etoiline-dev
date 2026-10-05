@@ -78,8 +78,14 @@ Ajouter une URL canonique lorsque l’adresse publique définitive du portfolio 
 
 ## Versions et historique
 
-Le numéro de version est défini dans `package.json` et repris dans `package-lock.json`.
+Le champ `version` de `package.json` est la source de vérité du numéro de version.
+`package-lock.json` reprend ce numéro au niveau racine et dans l’entrée du projet.
 Chaque version créée est repérée par un tag Git `vX.Y.Z`.
 
-Le [changelog](CHANGELOG.md) conserve une liste continue de changements, avec les entrées
-les plus récentes en tête.
+Le [changelog](CHANGELOG.md) regroupe les changements sous un titre contenant la version
+et sa date, au format `## X.Y.Z - YYYY-MM-DD`, comme dans les autres projets.
+Les versions les plus récentes apparaissent en premier et l’historique est conservé.
+
+Pour préparer une version, utiliser `npm version X.Y.Z --no-git-tag-version --ignore-scripts`
+pour synchroniser les fichiers npm, puis regrouper les changements en attente sous le titre
+daté du changelog avant de créer le commit et son tag.
