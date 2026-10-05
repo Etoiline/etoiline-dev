@@ -1,5 +1,9 @@
 # Changelog
 
+- Add the responsive Etoiline portfolio featuring Mouv’Air, with accessible navigation,
+  configurable project content, and about and contact sections.
+- Add local project previews, site metadata and favicon, and document portfolio customization.
+
 - Connect the project to the `etoiline-dev` GitHub repository and reconcile its existing
   history for subsequent pushes.
 
