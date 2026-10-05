@@ -76,6 +76,10 @@ Ajouter une URL canonique lorsque l’adresse publique définitive du portfolio 
 - `vite.config.ts` : configuration Vite.
 - `tsconfig*.json` : configuration TypeScript.
 
-## Historique
+## Versions et historique
 
-Voir [CHANGELOG.md](CHANGELOG.md).
+Le numéro de version est défini dans `package.json` et repris dans `package-lock.json`.
+Chaque version créée est repérée par un tag Git `vX.Y.Z`.
+
+Le [changelog](CHANGELOG.md) conserve une liste continue de changements, avec les entrées
+les plus récentes en tête.
