@@ -1,8 +1,12 @@
 # Etoiline
 
 Portfolio personnel en français, développé avec React, TypeScript et Vite.
-Il présente les projets d’Etoiline, à commencer par [Mouv’Air](https://mouvair.etoiline.dev),
-une application pour choisir quand sortir selon la météo et la qualité de l’air.
+Il présente les projets d’Etoiline :
+
+- [Mouv’Air](https://mouvair.etoiline.dev), une application pour choisir quand sortir
+  selon la météo et la qualité de l’air.
+- [Crin Serein](https://crinserein.etoiline.dev), le carnet de soins de vos chevaux,
+  accessible en ligne.
 
 ## Démarrage
 
@@ -33,15 +37,24 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
 - Pour ajouter un projet, ajouter une entrée à la liste et sa capture dans `public/images/`.
   Sans capture, ou si le fichier est indisponible, un aperçu affiche le nom du projet.
 - La capture de Mouv’Air, réalisée le 5 octobre 2026, se trouve dans
-  `public/images/mouvair.jpg` (1265 × 712 px). Les aperçus sont cadrés en haut au ratio 2:1.
-  Leur lien ouvre le site réel. Remplacer la capture lorsque l’interface évolue.
+  `public/images/mouvair.jpg` (1265 × 712 px).
+- La capture de Crin Serein, réalisée le 27 octobre 2026, se trouve dans
+  `public/images/crinserein.jpg` (1265 × 712 px).
+- Les aperçus sont cadrés en haut au ratio 2:1. Leur lien ouvre le site réel.
+  Remplacer les captures lorsque les interfaces évoluent.
 - Les textes se modifient dans `src/App.tsx` et les styles dans `src/index.css`.
+- La section « À propos » présente trois ans d’expérience en développement, les
+  technologies React, React Native, FastAPI pour le backend et Hugo, l’utilisation
+  de l’IA comme aide au développement, ainsi que les projets personnels Mouv’Air
+  et Crin Serein. Actualiser la durée d’expérience lorsque cette présentation évolue.
 
 ## Interface et accessibilité
 
 La page reprend une palette ivoire et violette, une typographie sans sérif et une
 illustration vectorielle de l’étoile Etoiline. Les projets sont présentés dans une
 mise en page ouverte. Les sections À propos et Contact utilisent le même fond.
+L’accueil associe le titre « Des idées. Du code. Des projets. », une courte présentation
+et l’illustration. L’accès aux sections passe par la navigation de l’en-tête.
 La mise en page est adaptée aux téléphones dès 320 px, aux tablettes et aux ordinateurs.
 
 Les trois liens de navigation restent visibles dans l’en-tête sur tous les écrans.

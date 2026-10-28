@@ -1,5 +1,10 @@
 # Changelog
 
+- Add Crin Serein to the portfolio with a local preview and updated project metadata.
+- Simplify the hero by removing the personal portfolio label and project and GitHub buttons.
+- Expand the about section with development experience, React, React Native, FastAPI, Hugo,
+  and AI-assisted development.
+
 ## 0.1.0 - 2026-10-05
 
 - Document the release workflow with dated changelog sections and manifest versioning.

@@ -92,15 +92,8 @@ function App() {
       <main id="contenu">
         <section id="accueil" className="hero page-width" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="intro-label">Portfolio personnel</p>
             <h1 id="hero-title">Des idées.<br />Du code.<br />Des <span>projets.</span></h1>
-            <p className="hero-description">Je développe des applications web. Voici mes projets, à commencer par Mouv’Air.</p>
-            <div className="hero-actions">
-              <a className="button" href="#projets">Voir mes projets <ArrowIcon /></a>
-              <a className="plain-link" href={portfolio.githubUrl} target="_blank" rel="noopener noreferrer">
-                GitHub <ArrowIcon diagonal /><span className="sr-only"> (nouvel onglet)</span>
-              </a>
-            </div>
+            <p className="hero-description">Je développe des applications web. Découvrez mes projets Mouv’Air et Crin Serein.</p>
           </div>
           <OrbitArtwork />
         </section>
@@ -128,7 +121,12 @@ function App() {
 
         <section id="a-propos" className="text-section page-width" aria-labelledby="about-title">
           <h2 id="about-title">À propos</h2>
-          <p>Ce portfolio rassemble mes projets personnels. J’y ajoute les applications que je développe, avec un lien pour les essayer.</p>
+          {/* Le récit est regroupé pour occuper une seule colonne à côté du titre. */}
+          <div className="about-copy">
+            <p>J’ai trois ans d’expérience en développement et je crée des applications web et mobiles avec React et React Native. Côté backend, j’utilise FastAPI. J’ai également utilisé Hugo pour réaliser des sites statiques.</p>
+            <p>Mes projets personnels partent de besoins concrets : choisir quand sortir avec Mouv’Air, ou suivre les soins de ses chevaux avec Crin Serein. J’aime transformer ces idées en outils simples et utiles au quotidien.</p>
+            <p>J’utilise aussi l’intelligence artificielle comme outil d’aide au développement de mes projets. Mon objectif : proposer des interfaces claires, accessibles et agréables à utiliser. Chaque projet est aussi une occasion d’apprendre et d’améliorer ma façon de développer.</p>
+          </div>
         </section>
 
         <section id="contact" className="text-section contact-section page-width" aria-labelledby="contact-title">
