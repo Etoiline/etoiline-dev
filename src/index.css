@@ -78,7 +78,25 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 .text-section h2 { font-size: 30px; letter-spacing: -1px; }
 .text-section p { font-size: 16px; color: var(--muted); line-height: 1.85; max-width: 550px; }
 .about-copy { display: grid; gap: 18px; }
-.contact-link { margin-top: 16px; color: var(--purple); overflow-wrap: anywhere; max-width: 100%; }
+.contact-content { min-width: 0; }
+.contact-form { max-width: 550px; margin-top: 24px; }
+.contact-form .contact-help { font-size: 12px; margin-bottom: 18px; }
+.contact-form fieldset { display: grid; gap: 20px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.contact-field { display: grid; gap: 8px; }
+.contact-field label { font-size: 14px; font-weight: 500; }
+.contact-field input, .contact-field textarea { width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid #b9b5c0; border-radius: 4px; background: transparent; color: var(--ink); font: inherit; font-size: 15px; line-height: 1.5; }
+.contact-field textarea { resize: vertical; min-height: 140px; }
+.contact-field input:focus-visible, .contact-field textarea:focus-visible, .contact-submit:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
+.contact-submit { justify-self: start; min-height: 44px; padding: 13px 20px; border: 0; border-radius: 4px; background: var(--purple); color: white; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; touch-action: manipulation; }
+.contact-submit:hover { background: #5f419f; }
+.contact-form fieldset:disabled { opacity: 0.65; }
+.contact-form fieldset:disabled .contact-submit { cursor: wait; }
+/* Le champ leurre reste hors de l’écran et du parcours clavier des visiteurs. */
+.contact-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.contact-form .contact-status { font-size: 14px; margin-top: 16px; }
+.contact-status:empty { margin-top: 0; }
+.contact-status[data-state='success'] { color: #2e6654; }
+.contact-status[data-state='error'] { color: #a52a43; }
 .contact-section { padding-bottom: 70px; }
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 25px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .site-footer .plain-link { font-size: 11px; }

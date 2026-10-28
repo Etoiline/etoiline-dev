@@ -1,5 +1,10 @@
 # Changelog
 
+- Add an accessible contact form with Vercel and Resend email delivery and submission feedback.
+- Keep the recipient address on the server and validate messages with honeypot checks,
+  size limits, and email deduplication.
+- Add simulated contact tests and document email setup and Vercel rate limiting configuration.
+
 - Add Crin Serein to the portfolio with a local preview and updated project metadata.
 - Simplify the hero by removing the personal portfolio label and project and GitHub buttons.
 - Expand the about section with development experience, React, React Native, FastAPI, Hugo,

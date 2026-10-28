@@ -1,9 +1,6 @@
 // Le nom partagé par l’en-tête et le pied de page conserve une graphie unique.
-// Sans e-mail renseigné, le contact mène vers GitHub.
-export const portfolio: { name: string; githubUrl: string; email: string | null } = {
+export const portfolio: { name: string } = {
   name: 'Etoiline',
-  githubUrl: 'https://github.com/Etoiline',
-  email: null,
 }
 
 export type Project = {

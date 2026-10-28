@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { SVGProps } from 'react'
+import ContactForm from './components/ContactForm'
 import { portfolio, projects } from './data/portfolio'
 import type { Project } from './data/portfolio'
 
@@ -70,9 +71,6 @@ function ProjectImage({ project }: { project: Project }) {
 }
 
 function App() {
-  const contactUrl = portfolio.email ? 'mailto:' + portfolio.email : portfolio.githubUrl
-  const contactIsExternal = !portfolio.email
-
   return (
     <>
       <a className="skip-link" href="#contenu">Aller au contenu</a>
@@ -131,12 +129,9 @@ function App() {
 
         <section id="contact" className="text-section contact-section page-width" aria-labelledby="contact-title">
           <h2 id="contact-title">Contact</h2>
-          <div>
-            <p>{portfolio.email ? 'Pour me contacter :' : 'Tu peux aussi me retrouver sur GitHub.'}</p>
-            <a className="plain-link contact-link" href={contactUrl} target={contactIsExternal ? '_blank' : undefined} rel={contactIsExternal ? 'noopener noreferrer' : undefined}>
-              {portfolio.email || 'GitHub'}<ArrowIcon diagonal />
-              {contactIsExternal && <span className="sr-only"> (nouvel onglet)</span>}
-            </a>
+          <div className="contact-content">
+            <p>Pour parler d’un projet ou simplement échanger, laisse-moi un message.</p>
+            <ContactForm />
           </div>
         </section>
       </main>

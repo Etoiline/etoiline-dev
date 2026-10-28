@@ -21,16 +21,19 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
 
 - `npm run dev` : lancer le serveur de développement.
 - `npm run lint` : vérifier le code avec Oxlint.
+- `npm test` : tester la validation, l’envoi et les erreurs du formulaire avec Node.js 24,
+  sans envoyer de vrai e-mail.
 - `npm run build` : vérifier TypeScript et générer le site statique dans `dist/`.
 - `npm run preview` : prévisualiser le site compilé.
 
 ## Contenu et personnalisation
 
-- `src/data/portfolio.ts` centralise les projets et les coordonnées de contact.
+- `src/data/portfolio.ts` centralise les projets et le nom public.
 - Le nom public s’écrit **Etoiline**, avec une majuscule et sans accent. `portfolio.name`
   définit le nom affiché dans l’en-tête et le pied de page ; les métadonnées sont dans `index.html`.
-- Si `portfolio.email` contient une adresse, le contact ouvre un lien `mailto:`.
-  Sinon, il ouvre le profil GitHub d’Etoiline.
+- Le contact passe par le formulaire. L’adresse de réception est définie uniquement
+  dans `server/contact.ts` ; elle n’est ni affichée sur la page ni incluse dans le
+  JavaScript distribué au navigateur.
 - Chaque projet possède un identifiant unique, un nom, une catégorie, une description
   et une URL. Les champs facultatifs `image` et `imageAlt` définissent sa capture
   et sa description accessible.
@@ -47,6 +50,53 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
   technologies React, React Native, FastAPI pour le backend et Hugo, l’utilisation
   de l’IA comme aide au développement, ainsi que les projets personnels Mouv’Air
   et Crin Serein. Actualiser la durée d’expérience lorsque cette présentation évolue.
+
+## Formulaire de contact
+
+Le formulaire demande un nom, une adresse e-mail et un message. Il appelle la fonction
+Vercel `/api/contact`, qui transmet un e-mail en texte brut à `contact@etoiline.dev`
+avec [Resend](https://resend.com/docs/api-reference/emails/send-email).
+L’adresse du visiteur est utilisée pour les réponses ; le destinataire reste fixé
+côté serveur. Les champs sont conservés en cas d’échec et vidés uniquement après
+confirmation du service d’envoi.
+
+Pour activer l’envoi sur Vercel :
+
+1. [Vérifier le domaine `etoiline.dev` dans Resend](https://resend.com/docs/dashboard/domains/introduction)
+   avec les enregistrements DNS indiqués par le service, puis créer une clé d’envoi.
+2. Ajouter `RESEND_API_KEY` aux variables d’environnement du projet Vercel pour les
+   environnements souhaités. `CONTACT_FROM` permet de remplacer l’expéditeur par défaut,
+   `Etoiline <contact@etoiline.dev>`, avec une adresse d’un domaine vérifié.
+3. Redéployer le projet. Les secrets restent côté serveur et n’utilisent jamais de
+   préfixe `VITE_`. Le fichier `.env.example` décrit les variables attendues.
+
+`npm run dev` et `npm run preview` servent l’interface seule. Pour utiliser aussi la
+fonction localement, copier `.env.example` dans `.env.local`, renseigner la clé, puis
+lancer [`npx vercel dev`](https://vercel.com/docs/cli/dev). Cette commande peut demander
+de relier le dossier au projet Vercel existant. Un envoi depuis cet environnement
+contacte réellement Resend ; les tests automatisés remplacent ce service.
+
+Le serveur valide les champs, limite les requêtes à 20 Ko, vérifie leur origine et
+rejette un champ leurre rempli. Les tentatives identiques utilisent une clé de
+déduplication Resend. Le portfolio ne stocke pas les messages en base de données.
+
+### Protection contre le spam et les robots
+
+Le champ leurre filtre les robots simples. La validation des champs et de l’origine
+ne suffit pas à empêcher un robot d’appeler directement l’API.
+Pour renforcer les protections existantes :
+
+- Configurer une
+  [règle de limitation Vercel](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting)
+  sur `POST /api/contact`, par exemple cinq requêtes par adresse IP sur dix minutes,
+  avec une réponse `429` lorsque la limite est atteinte.
+- Ajouter [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/)
+  au formulaire et vérifier son jeton côté serveur avant de contacter Resend.
+  Le widget côté navigateur doit être complété par cette validation serveur.
+
+Ces deux protections supplémentaires restent à configurer ; Turnstile n’est pas
+encore intégré au code. Le retrait de l’adresse publique réduit son exposition
+aux collecteurs d’adresses sur la page.
 
 ## Interface et accessibilité
 
@@ -73,14 +123,22 @@ dans une iframe et aucun formulaire de démonstration n’est affiché.
 ## Publication
 
 Le contenu de `dist/`, généré par `npm run build`, peut être publié chez un hébergeur
-de sites statiques. Le portfolio ne nécessite ni serveur applicatif ni clé d’API.
+de sites statiques. Sur Vercel, le dossier `api/` fournit aussi la fonction d’envoi
+du formulaire ; copier uniquement `dist/` sur un autre hébergeur ne suffit pas à
+faire fonctionner l’envoi. La clé Resend doit être configurée sur le serveur.
 Les métadonnées se trouvent dans `index.html` et le favicon dans `public/favicon.svg`.
 Ajouter une URL canonique lorsque l’adresse publique définitive du portfolio est fixée.
 
 ## Structure
 
 - `src/App.tsx` : sections du portfolio, illustration et captures des projets.
-- `src/data/portfolio.ts` : projets et coordonnées.
+- `src/data/portfolio.ts` : projets et nom public.
+- `src/components/ContactForm.tsx` : champs, validation et retours d’envoi accessibles.
+- `src/lib/contact.ts` : appel de l’API depuis le navigateur.
+- `shared/contact.ts` : règles de validation communes.
+- `api/contact.ts` : entrée de la fonction Vercel.
+- `server/contact.ts` : adresse de réception, validation serveur et appel de Resend.
+- `tests/contact.test.mjs` : scénarios d’envoi simulés et cas d’erreur.
 - `src/main.tsx` : point d’entrée React.
 - `src/index.css` : styles adaptatifs et accessibilité.
 - `public/favicon.svg` : favicon Etoiline.
