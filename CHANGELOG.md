@@ -1,5 +1,7 @@
 # Changelog
 
+- Explain App composition, accessibility, prerendering, and component responsibilities in French.
+
 - Document Windows pnpm junction permissions behind misleading Motion TypeScript errors.
 
 - Update Vite to 8.3.5 to address development server vulnerabilities.

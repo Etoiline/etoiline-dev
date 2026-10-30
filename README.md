@@ -397,6 +397,13 @@ clés secrètes ; conserver leur présence en connaissance de cause.
 
 ## Structure
 
+`src/App.tsx` assemble la page et fixe l’ordre des sections. Il est utilisé à la fois
+par le navigateur (`src/main.tsx`) et par le pré-rendu (`src/entry-server.tsx`).
+Ses commentaires précisent le rôle du contexte Motion, du lien d’évitement, des
+ancres et des données partagées. Pour déplacer une section, modifier cet assemblage ;
+si son identifiant change, adapter aussi les liens correspondants dans `Header`.
+La saisie et l’envoi du formulaire sont délégués aux composants et au serveur dédiés.
+
 - `src/App.tsx` : composition des sections, navigation, présentation et contact.
 - `src/data/portfolio.ts` : profil, groupes de compétences et projets.
 - `src/types/portfolio.ts` : contrats éditoriaux partagés.
