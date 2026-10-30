@@ -1,5 +1,12 @@
+/*
+ * Feuille globale importée par main.tsx, puis extraite par Vite dans les ressources de production.
+ * Organisation : palette et bases, navigation, accueil, sections, projets, formulaire, puis adaptations d’écran.
+ * Les classes correspondent aux composants React ; les gestes animés par Motion sont configurés dans le TSX.
+ */
+/* Les polices viennent de Google Fonts ; les familles de secours restent utilisables pendant leur chargement. */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
 
+/* Palette commune et réglages typographiques hérités ; les variables évitent de dupliquer les couleurs de marque. */
 :root {
   font-family: 'DM Sans', sans-serif;
   color: #28272e;
@@ -17,23 +24,30 @@
   --lavender: #eee8f6;
 }
 
+/* border-box inclut bordures et marges internes dans les largeurs annoncées, notamment pour les champs du formulaire. */
 * { box-sizing: border-box; }
+/* La réserve de défilement empêche l’en-tête fixe de recouvrir les titres ciblés par les liens d’ancrage. */
 html { scroll-behavior: smooth; scroll-padding-top: 105px; }
 body { margin: 0; }
 p, h1, h2, h3, h4 { margin: 0; }
 a { color: inherit; text-decoration: none; touch-action: manipulation; }
+/* Le focus reste visible au clavier même quand un lien ne porte pas de soulignement permanent. */
 a:focus-visible { outline: 3px solid var(--purple); outline-offset: 6px; }
 ::selection { color: var(--ink); background: #ded1f6; }
 svg { display: block; }
 a svg { flex-shrink: 0; width: 19px; height: 19px; }
+/* Toutes les sections partagent cet axe de contenu ; leurs fonds peuvent occuper la largeur complète. */
 .page-width { width: min(1200px, calc(100% - 112px)); margin-inline: auto; }
+/* Masquage visuel qui préserve le texte pour les lecteurs d’écran, contrairement à display: none. */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+/* Le lien d’évitement sort de l’écran au repos et devient visible dès qu’il reçoit le focus. */
 .skip-link { position: fixed; z-index: 20; top: 12px; left: 16px; padding: 12px 20px; background: var(--ink); color: white; transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); }
 
 /* Le fond opaque garde la navigation lisible au-dessus des illustrations. */
 .site-header { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; min-height: 92px; }
+/* La marque et sa navigation restent des liens HTML ; Motion ne modifie que leur retour visuel. */
 .brand { display: inline-flex; align-items: center; gap: 10px; font-family: 'Manrope', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -1.8px; }
 .brand-icon { display: inline-flex; flex-shrink: 0; }
 .brand svg { width: 28px; height: 28px; color: var(--purple); }
@@ -55,6 +69,7 @@ h1 > span { color: var(--purple); }
 .hero-description strong { color: var(--ink); font-weight: 500; }
 .availability { display: inline-flex; align-items: center; gap: 9px; margin-top: 24px; font-size: 13px; font-weight: 500; }
 .availability > span { width: 7px; height: 7px; border-radius: 50%; background: #2e6654; }
+/* La hauteur minimale conserve une zone d’action confortable même pour un libellé court. */
 .plain-link { display: inline-flex; align-items: center; gap: 11px; min-height: 44px; font-size: 14px; font-weight: 500; }
 .link-arrow { display: inline-flex; flex-shrink: 0; }
 .plain-link .link-arrow svg { width: 16px; height: 16px; }
@@ -79,12 +94,16 @@ h2 { font-size: 34px; font-weight: 650; letter-spacing: -1.2px; line-height: 1.2
 .section-title { display: flex; align-items: center; gap: 18px; color: var(--purple); font-size: clamp(40px, 4.2vw, 52px); font-weight: 800; letter-spacing: -1.8px; line-height: 1.15; }
 .section-title::before { content: ''; width: 5px; height: 0.95em; flex-shrink: 0; border-radius: 3px; background: var(--purple); }
 .project-list { margin-top: 48px; }
+/* Sur écran large, la capture et son résumé occupent deux colonnes ; les études de cas suivent sous la rangée. */
 .project-row { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 55px; }
 .project-card + .project-card { margin-top: 60px; padding-top: 45px; border-top: 1px solid var(--line); }
+/* Le débordement masqué recadre le léger zoom Motion sans faire grandir la grille ni déplacer le texte. */
 .project-visual-link { display: block; min-width: 0; overflow: hidden; border-radius: 3px; }
+/* Le ratio affiche une bande 2:1 ; le cadrage supérieur préserve l’en-tête des captures de sites. */
 .project-image { display: block; width: 100%; height: auto; aspect-ratio: 2; object-fit: cover; object-position: left top; border-radius: 3px; }
 h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2; overflow-wrap: anywhere; }
 .project-description { font-size: 15px; color: var(--muted); line-height: 1.85; margin-top: 17px; max-width: 470px; }
+/* Base commune des technologies ; les fiches projet surchargent ensuite ces badges pour une présentation plus légère. */
 .technology-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 20px 0 0; }
 .technology-list li { padding: 5px 9px; border: 1px solid #d9d3e1; border-radius: 3px; font-size: 12px; line-height: 1.5; color: #51445f; }
 .project-details .technology-list { gap: 6px 14px; margin-top: 16px; }
@@ -92,6 +111,7 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 .project-links { display: flex; flex-wrap: wrap; gap: 10px 25px; color: var(--purple); margin-top: 17px; }
 .repository-note { font-size: 12px; line-height: 1.7; color: var(--muted); margin-top: 3px; }
 .repository-note a { display: inline-block; padding-block: 6px; text-decoration: underline; text-underline-offset: 3px; }
+/* Le secours garde le même ratio que la capture, afin de limiter les changements de mise en page en cas d’échec. */
 .project-placeholder { display: flex; align-items: center; justify-content: center; gap: 20px; aspect-ratio: 2; color: var(--purple); }
 .project-placeholder > svg { width: 45px; height: 45px; }
 .project-placeholder > span { font-family: 'Manrope', sans-serif; font-size: 28px; overflow-wrap: anywhere; }
@@ -99,11 +119,14 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 /* La fiche se lit d’abord en résumé ; le détail technique se déplie nativement. */
 .project-case-study { margin-top: 24px; }
 .project-case-study > summary { display: flex; align-items: center; gap: 12px; width: fit-content; min-height: 48px; padding-block: 12px; color: var(--purple); font-size: 14px; font-weight: 500; list-style: none; cursor: pointer; }
+/* Le marqueur natif est remplacé visuellement par ArrowIcon ; summary conserve son comportement d’ouverture natif. */
 .project-case-study > summary::-webkit-details-marker { display: none; }
 .project-case-study > summary:focus-visible { outline: 3px solid var(--purple); outline-offset: 6px; }
 .project-case-study > summary svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 180ms ease-out; }
+/* L’attribut open est géré par le navigateur ; aucun état React n’est nécessaire pour orienter la flèche. */
 .project-case-study[open] > summary svg { transform: rotate(90deg); }
 .case-study { padding-top: 12px; }
+/* La liste de définitions conserve l’association besoin/rôle/actions/résultat malgré son affichage en grille. */
 .case-study-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 50px; margin: 0; padding-block: 12px 30px; }
 .case-study-grid dt { margin-bottom: 10px; font-size: 15px; font-weight: 600; }
 .case-study-grid dd { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.85; }
@@ -111,6 +134,7 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 .case-study-grid li + li { margin-top: 10px; }
 .project-ai { padding-top: 24px; border-top: 1px solid var(--line); }
 .project-ai h4 { font-size: 16px; line-height: 1.5; font-weight: 600; }
+/* minmax(0, 1fr) laisse les colonnes rétrécir même lorsqu’une contribution contient un texte long. */
 .ai-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 25px; list-style: none; margin: 18px 0 0; padding: 0; }
 .ai-steps li { font-size: 14px; line-height: 1.85; }
 .ai-steps strong { font-weight: 600; }
@@ -119,39 +143,49 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 .project-result p { font-size: 13px; line-height: 1.8; color: var(--muted); }
 .project-result p + p { margin-top: 4px; }
 .project-result .result-label { color: var(--ink); font-weight: 600; }
+/* Les compétences utilisent trois groupes sur grand écran ; le seuil mobile les empile dans le même ordre de lecture. */
 .stack-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 35px; list-style: none; padding: 0; margin: 42px 0 0; }
 .stack-grid > li { border-top: 1px solid #cfc3df; padding-top: 24px; }
 .stack-grid h3 { font-size: 19px; line-height: 1.5; letter-spacing: -0.4px; }
 .stack-grid p { margin-top: 12px; color: var(--muted); font-size: 14px; line-height: 1.85; }
 .stack-note { margin-top: 28px; font-size: 13px; line-height: 1.8; color: var(--muted); }
 
+/* Les sections textuelles alignent leur titre à gauche et leur contenu à droite, puis passent sur une colonne à 800 px. */
 .text-section { display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: start; gap: 70px; }
 .text-section p { font-size: 16px; color: var(--muted); line-height: 1.85; max-width: 550px; }
 .about-copy { display: grid; gap: 18px; }
+/* min-width: 0 permet au contenu du formulaire de rétrécir dans la grille sans provoquer de débordement horizontal. */
 .contact-content { min-width: 0; }
 .contact-form { max-width: 550px; margin-top: 24px; }
 .contact-form .contact-help { font-size: 12px; margin-bottom: 18px; }
+/* Le fieldset reste le groupe sémantique et désactivable du formulaire, même si sa bordure native est retirée. */
 .contact-form fieldset { display: grid; gap: 20px; min-width: 0; margin: 0; padding: 0; border: 0; }
 .contact-field { display: grid; gap: 8px; }
 .contact-field label { font-size: 14px; font-weight: 500; }
 .contact-field input, .contact-field textarea { width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid #82798f; border-radius: 4px; background: transparent; color: var(--ink); font: inherit; font-size: 15px; line-height: 1.5; }
+/* L’agrandissement vertical laisse le visiteur relire son message sans casser la largeur de la page. */
 .contact-field textarea { resize: vertical; min-height: 140px; }
 .contact-field input:focus-visible, .contact-field textarea:focus-visible, .contact-submit:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 .contact-submit { display: inline-flex; align-items: center; justify-content: center; gap: 10px; justify-self: start; min-width: 215px; max-width: 100%; min-height: 44px; padding: 13px 20px; border: 0; border-radius: 4px; background: var(--purple); color: white; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; touch-action: manipulation; }
 .contact-submit-icon { width: 16px; height: 16px; flex-shrink: 0; }
 .contact-submit:hover { background: #5f419f; }
+/* Le hook commande disabled ; le CSS signale l’attente, mais ne constitue pas une limitation de fréquence serveur. */
 .contact-form fieldset:disabled { opacity: 0.65; }
 .contact-form fieldset:disabled .contact-submit { cursor: wait; }
 /* Le champ leurre reste hors de l’écran et du parcours clavier des visiteurs. */
+/* ContactForm complète ce masquage avec aria-hidden et tabIndex=-1 ; le serveur contrôle sa valeur. */
 .contact-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .contact-form .contact-status { font-size: 14px; margin-top: 16px; }
+/* La zone de statut reste présente pour les annonces accessibles sans ajouter d’espace avant le premier résultat. */
 .contact-status:empty { margin-top: 0; }
 .contact-status[data-state='success'] { color: #2e6654; }
 .contact-success-icon { display: inline-block; width: 20px; height: 20px; margin-right: 7px; vertical-align: -4px; }
 .contact-status[data-state='error'] { color: #a52a43; }
+/* Le pied de page conserve l’alignement page-width et sépare le crédit du lien de retour à l’accueil. */
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 25px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .site-footer .plain-link { font-size: 11px; }
 
+/* Réduit d’abord les marges et les écarts avant de changer la structure des grilles. */
 @media (max-width: 1100px) {
   .page-width { width: calc(100% - 72px); }
   .hero { gap: 35px; padding-block: 60px 80px; }
@@ -161,6 +195,7 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
   .text-section { gap: 50px; }
 }
 
+/* Sur largeur intermédiaire, les textes longs et les étapes IA sont empilés pour garder une lecture confortable. */
 @media (max-width: 800px) {
   .page-width { width: calc(100% - 48px); }
   .header-inner { min-height: 80px; }
@@ -181,6 +216,7 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
   .text-section p { font-size: 14px; }
 }
 
+/* Sur mobile, la navigation occupe une seconde ligne ; la réserve de défilement suit sa nouvelle hauteur. */
 @media (max-width: 600px) {
   html { scroll-padding-top: 140px; }
   .page-width { width: calc(100% - 40px); }
@@ -209,6 +245,7 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
   .site-footer .plain-link { font-size: 10px; }
 }
 
+/* Complète useReducedMotion côté React : retire ici le défilement animé et les transitions purement CSS. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }

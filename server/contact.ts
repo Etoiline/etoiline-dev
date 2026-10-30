@@ -7,6 +7,8 @@
  * Le code ne crée pas de compte Brevo et ne configure pas Vercel : l’envoi nécessite
  * une clé API et un expéditeur configurés au préalable. La confirmation de Brevo
  * signifie que la demande a été acceptée, pas que l’e-mail est déjà arrivé en boîte.
+ * Ce gestionnaire ne conserve pas de compteur d’envois entre les requêtes : la limitation
+ * de fréquence se configure dans le pare-feu Vercel avant l’exécution de cette fonction.
  */
 import { createHash } from 'node:crypto'
 import { parseContactMessage } from '../shared/contact.ts'
@@ -42,6 +44,7 @@ class BodyTooLargeError extends Error {}
  */
 function createIdempotencyKey(content: string): string {
   // Cet espace de noms propre au portfolio doit rester fixe pour conserver les clés des nouveaux essais.
+  // Cette valeur est un identifiant public de calcul, sans pouvoir d’authentification ni accès au compte Brevo.
   const namespace = Buffer.from('8b33c0db8ab54a419d1d2439adf455e3', 'hex')
   const bytes = createHash('sha1').update(namespace).update(content).digest().subarray(0, 16)
   // La version et la variante occupent des bits réservés dans le format UUID.
@@ -145,6 +148,7 @@ export function createContactHandler({ env = process.env, send = fetch }: Contac
 
     // La déduplication se configure dans le corps JSON, parmi les en-têtes de l’e-mail.
     // Ce champ `headers` est distinct des en-têtes HTTP, dont `api-key` authentifie l’appel à Brevo.
+    // Deux contenus différents auront des identifiants différents : cette protection ne remplace pas un quota de requêtes.
     const idempotencyKey = createIdempotencyKey(JSON.stringify(email))
     try {
       const response = await send('https://api.brevo.com/v3/smtp/email', {

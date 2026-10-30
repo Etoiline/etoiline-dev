@@ -1,13 +1,18 @@
 {
+  /* Concerne l’API, le traitement serveur, le contrat partagé et la configuration exécutée par Vite. */
   "compilerOptions": {
+    /* Le cache de compilation est local et n’appartient pas aux fichiers à publier. */
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "es2023",
+    /* Sans DOM : le serveur utilise les déclarations Node, y compris Request, Response et fetch. */
     "lib": ["ES2023"],
     "types": ["node"],
+    /* Les déclarations des dépendances sont acceptées sans désactiver les contrôles du code du projet. */
     "skipLibCheck": true,
 
-    /* Résolution native des modules Node.js. */
+    /* NodeNext interprète les imports et exports selon Node et le `type: module` de package.json. */
     "module": "nodenext",
+    /* Les imports .ts sont utilisés par Node et la plateforme ; `tsc` vérifie sans réécrire de fichiers. */
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
@@ -17,12 +22,16 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    /* Garde les imports compatibles avec la casse des chemins sur l’hébergement Linux. */
     "forceConsistentCasingInFileNames": true,
+    /* Signale les chemins sans retour et les variables ou paramètres inutilisés. */
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    /* Le typage doit pouvoir disparaître sans produire de constructions JavaScript supplémentaires. */
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
+  /* L’interface dispose de son propre projet dans tsconfig.app.json. */
   "include": ["vite.config.ts", "api", "server", "shared"]
 }

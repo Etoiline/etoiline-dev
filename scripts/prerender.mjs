@@ -18,6 +18,7 @@ const output = new URL('../dist/index.html', import.meta.url)
 
 // Le HTML de Vite contient une racine React vide, qui sera remplie avec le contenu du portfolio.
 // Si ce repère a changé, on arrête le build pour éviter de publier une page sans pré-rendu.
+// Relancer le script seul sur un HTML déjà rempli ne convient pas : `npm run build` recrée d’abord le document Vite.
 const placeholder = '<div id="root"></div>'
 const html = await readFile(output, 'utf8')
 if (!html.includes(placeholder)) throw new Error('Le point d’insertion du pré-rendu est introuvable.')

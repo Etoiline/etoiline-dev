@@ -1,11 +1,16 @@
 <!doctype html>
+<!-- Document de base de Vite : les métadonnées sont disponibles avant le chargement de React. -->
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
+    <!-- Le viewport adapte les largeurs CSS aux écrans mobiles ; theme-color colore l’interface du navigateur. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#faf9f6" />
+    <!-- Ces textes sont indépendants de data/portfolio.ts : les maintenir cohérents avec le profil visible. -->
     <meta name="description" content="Développeur Front-End React, TypeScript et React Native, 3 ans d’expérience. Développement augmenté par l’IA. Recherche CDI 100 % télétravail." />
+    <!-- L’URL canonique désigne la page de référence, y compris lorsque ce HTML sert sur une prévisualisation. -->
     <link rel="canonical" href="https://etoiline.dev/" />
+    <!-- Open Graph et les balises Twitter proposent les titres et descriptions utilisés lors du partage d’un lien. -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:title" content="Etoiline — Front-End React / TypeScript · CDI full remote" />
@@ -16,9 +21,11 @@
     <meta name="twitter:title" content="Etoiline — Front-End React / TypeScript · CDI full remote" />
     <meta name="twitter:description" content="Développeur Front-End, 3 ans d’expérience. React, TypeScript, React Native et développement augmenté par l’IA. CDI 100 % télétravail." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Anticipe les connexions des polices importées par index.css ; aucune police n’est téléchargée par ce lien seul. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>Etoiline — Front-End React / TypeScript · CDI full remote</title>
+    <!-- Données structurées de la page profil ; le contenu du script reste du JSON strict, sans commentaires internes. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -38,7 +45,9 @@
     </script>
   </head>
   <body>
+    <!-- scripts/prerender.mjs recherche cette racine exacte et y insère le HTML d’App pendant le build. -->
     <div id="root"></div>
+    <!-- Vite transforme ce point d’entrée TSX en ressources compilées ; main.tsx active ensuite React. -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,8 +1,13 @@
+/**
+ * Présente le positionnement professionnel dès l’arrivée sur la page.
+ * Le profil partagé fournit le métier, l’expérience et la disponibilité ; le texte d’accroche reste éditorial.
+ */
 import type { JSX } from 'react'
 import type { PortfolioProfile } from '../types/portfolio'
 
 type HeroProps = Readonly<{ profile: PortfolioProfile }>
 
+// Le SVG fait partie du composant : il reste net à toute taille et ne dépend pas d’une image distante.
 function OrbitArtwork(): JSX.Element {
   // L’illustration est décorative et ne doit pas interrompre la lecture du positionnement.
   return (
@@ -23,11 +28,13 @@ export default function Hero({ profile }: HeroProps): JSX.Element {
     <section id="accueil" className="hero page-width" aria-labelledby="hero-title">
       <div className="hero-copy">
         <p className="eyebrow">{profile.role} · {profile.yearsExperience} ans d’expérience</p>
+        {/* Ce titre h1 décrit la page ; les sections suivantes poursuivent la hiérarchie avec des h2. */}
         <h1 id="hero-title">Front-End React.<br /><span>Du produit, plus vite.</span></h1>
         <p className="hero-description">
           Je développe des applications web et mobiles avec <strong>React, TypeScript et React Native</strong>.
           {' '}L’IA accélère mon delivery ; je garde la main sur l’architecture, le typage et la qualité du code.
         </p>
+        {/* Le point coloré ne porte aucune information supplémentaire : la disponibilité est donnée en texte. */}
         <p className="availability"><span aria-hidden="true" />{profile.availability}</p>
       </div>
       <OrbitArtwork />

@@ -20,6 +20,8 @@
  * compatible avec Node.js, en lui fournissant un point d’entrée adapté.
  * Le serveur Vite seul ne lance pas cette fonction ; `vercel dev` permet de tester
  * localement l’interface et la route ensemble, comme expliqué dans le README.
+ * Une règle de limitation du pare-feu Vercel agit en amont : elle peut répondre 429
+ * sans exécuter ce module, et sa configuration n’est pas enregistrée dans ce fichier.
  */
 import { createContactHandler } from '../server/contact.ts'
 

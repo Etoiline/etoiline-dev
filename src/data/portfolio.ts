@@ -1,5 +1,12 @@
+/**
+ * Contenu public du portfolio : profil, compétences et projets, sans appel réseau.
+ * App et ses composants consomment ces données aussi bien pendant le pré-rendu que dans le navigateur.
+ * Modifier ce fichier change les contenus affichés ; les textes de l’accueil et d’App restent dans leurs composants.
+ * Les métadonnées de index.html sont distinctes et doivent être actualisées si le positionnement change.
+ */
 import type { PortfolioProfile, Project, SkillGroup } from '../types/portfolio'
 
+// `satisfies` vérifie le contrat sans perdre les valeurs littérales conservées par `as const`.
 export const portfolio = {
   name: 'Etoiline',
   role: 'Développeur Front-End',
@@ -7,6 +14,7 @@ export const portfolio = {
   availability: 'CDI · 100 % télétravail',
 } as const satisfies PortfolioProfile
 
+// L’ordre des entrées est celui de la section Stack ; les id doivent être uniques et rester stables.
 export const skillGroups: readonly SkillGroup[] = [
   {
     id: 'web',
@@ -30,6 +38,8 @@ export const skillGroups: readonly SkillGroup[] = [
 
 // Les captures sont locales pour rendre le portfolio indépendant des sites présentés.
 // La stack de chaque projet décrit son code réel, indépendamment des compétences générales.
+// Chaque id sert aux clés React et aux titres accessibles ; une image référence un fichier de public/.
+// `presentation` choisit une fiche compacte ou une fiche accompagnée d’un récit STAR obligatoire.
 export const projects: readonly Project[] = [
   {
     id: 'mouvair',

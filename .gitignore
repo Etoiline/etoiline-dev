@@ -1,4 +1,4 @@
-# Logs
+# Journaux créés par les outils : ils décrivent une exécution locale, pas le code du projet.
 logs
 *.log
 npm-debug.log*
@@ -7,13 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dépendances installées et résultats générés : les recréer avec les commandes du projet.
 node_modules
 dist
 dist-ssr
+# Réglages et rapports propres à la machine, notamment .env.local et .preview.local.
 *.local
+# Les valeurs privées restent locales ; seule la liste publique de variables est conservée.
 .env
 .env.*
 !.env.example
+# Métadonnées de liaison au projet Vercel, créées par son outil de développement.
 .vercel
 
 # Fichiers de clés privées et identifiants locaux : les modèles publics doivent rester sans secret.
@@ -24,7 +28,7 @@ dist-ssr
 .npmrc
 credentials.json
 
-# Editor directories and files
+# Réglages d’éditeur et fichiers système ; seules les recommandations d’extensions VS Code sont partageables.
 .vscode/*
 !.vscode/extensions.json
 .idea

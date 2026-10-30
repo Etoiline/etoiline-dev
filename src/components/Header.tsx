@@ -1,3 +1,7 @@
+/**
+ * En-tête commun avec l’identité du site et la navigation vers ses sections.
+ * Les destinations sont des ancres de la même page, sans changement de route ni appel réseau.
+ */
 import { useReducedMotion } from 'motion/react'
 import * as m from 'motion/react-m'
 import type { JSX } from 'react'
@@ -5,6 +9,7 @@ import { StarIcon } from './Icons'
 
 type HeaderProps = Readonly<{ name: string }>
 
+// Ces identifiants doivent suivre les sections de App, Hero et Stack ; leur ordre fixe celui de la navigation.
 const navigationItems = [
   { href: '#projets', label: 'Projets' },
   { href: '#stack', label: 'Stack' },
@@ -14,11 +19,13 @@ const navigationItems = [
 
 export default function Header({ name }: HeaderProps): JSX.Element {
   const reducedMotion = useReducedMotion()
+  // La rotation du logo est facultative ; son nom et sa destination restent accessibles sans animation.
   const logoInteraction = reducedMotion ? 'rest' : 'active'
 
   return (
     <header className="site-header">
       <div className="header-inner page-width">
+        {/* Le nom accessible remplace les détails décoratifs de la marque et annonce le retour à l’accueil. */}
         <m.a
           className="brand"
           href="#accueil"
@@ -33,6 +40,7 @@ export default function Header({ name }: HeaderProps): JSX.Element {
           </m.span>
           <span>{name}<span className="brand-period">.</span></span>
         </m.a>
+        {/* Chaque lien reçoit le même retour visuel au clavier qu’à la souris. */}
         <nav className="main-nav" aria-label="Navigation principale">
           {navigationItems.map(({ href, label }) => (
             <m.a key={href} href={href} initial={false} animate="rest" whileHover="active" whileFocus="active">

@@ -1,5 +1,8 @@
 # Changelog
 
+- Add detailed French comments across sources, styles, configuration, and public assets.
+- Add a file-by-file guide explaining application flows, dependencies, and generated files.
+
 - Explain App composition, accessibility, prerendering, and component responsibilities in French.
 
 - Document Windows pnpm junction permissions behind misleading Motion TypeScript errors.

@@ -241,9 +241,10 @@ Pour renforcer les protections existantes :
   au formulaire et vérifier son jeton côté serveur avant de contacter Brevo.
   Le widget côté navigateur doit être complété par cette validation serveur.
 
-Ces deux protections supplémentaires restent à configurer ; Turnstile n’est pas
-encore intégré au code. Le retrait de l’adresse publique réduit son exposition
-aux collecteurs d’adresses sur la page.
+La règle de fréquence se configure dans le projet Vercel hébergé ; elle n’est pas
+définie dans les fichiers de ce dépôt. Turnstile n’est pas encore intégré au code.
+Le retrait de l’adresse publique réduit son exposition aux collecteurs d’adresses
+sur la page.
 
 ## Interface et accessibilité
 
@@ -396,6 +397,12 @@ sources et les identités des auteurs des commits. Ces informations ne sont pas 
 clés secrètes ; conserver leur présence en connaissance de cause.
 
 ## Structure
+
+Le [guide des fichiers](docs/guide-des-fichiers.md) détaille le rôle de chaque fichier
+suivi, ses liens avec le reste du projet et les précautions utiles pour le modifier.
+Les sources et configurations commentables portent aussi des explications en français.
+Les fichiers JSON stricts, les fichiers de verrouillage et les images sont expliqués
+dans ce guide pour conserver leur format et leur mode de génération.
 
 `src/App.tsx` assemble la page et fixe l’ordre des sections. Il est utilisé à la fois
 par le navigateur (`src/main.tsx`) et par le pré-rendu (`src/entry-server.tsx`).

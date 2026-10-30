@@ -1,3 +1,5 @@
+# Consignes publiques aux robots d’exploration ; ce fichier ne protège aucun contenu privé.
+# Le site entier est explorable ; le sitemap indique l’URL principale à découvrir.
 User-agent: *
 Allow: /
 

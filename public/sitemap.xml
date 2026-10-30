@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Carte du site pour les moteurs de recherche, référencée dans robots.txt. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Les sections #projets, #stack, #a-propos et #contact appartiennent toutes à cette page unique. -->
   <url>
     <loc>https://etoiline.dev/</loc>
   </url>

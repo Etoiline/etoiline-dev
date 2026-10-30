@@ -1,3 +1,8 @@
+/**
+ * Interface du formulaire : champs, aide de saisie, bouton et retour accessible.
+ * Le hook porte la logique d’envoi ; les contraintes HTML reprennent les limites partagées avec le serveur.
+ * Aucun identifiant Brevo ni contenu saisi n’est enregistré dans un stockage persistant par ce composant.
+ */
 import { useReducedMotion } from 'motion/react'
 import * as m from 'motion/react-m'
 import type { JSX } from 'react'
@@ -10,10 +15,13 @@ function ContactForm(): JSX.Element {
   const reducedMotion = useReducedMotion()
 
   return (
+    // L’état occupé est annoncé aux technologies d’assistance ; l’aide reste associée au formulaire.
     <form className="contact-form" method="post" onSubmit={handleSubmit} aria-busy={isSending} aria-describedby="contact-help">
       <p id="contact-help" className="contact-help">Tous les champs sont obligatoires.</p>
+      {/* Le fieldset désactive ensemble la saisie et le bouton pendant l’attente de la réponse. */}
       <fieldset disabled={isSending}>
         <legend className="sr-only">Écrire à Etoiline</legend>
+        {/* Les labels utilisent les id pour le focus ; les name fournissent les clés lues par FormData. */}
         <div className="contact-field">
           <label htmlFor="contact-name">Nom</label>
           <input id="contact-name" name="name" autoComplete="name" required minLength={contactLimits.nameMin} maxLength={contactLimits.nameMax} />
@@ -26,10 +34,12 @@ function ContactForm(): JSX.Element {
           <label htmlFor="contact-message">Message</label>
           <textarea id="contact-message" name="message" rows={6} required minLength={contactLimits.messageMin} maxLength={contactLimits.messageMax} />
         </div>
+        {/* Ce champ caché et exclu du clavier piège les robots simples ; le serveur exige qu’il reste vide. */}
         <div className="contact-honeypot" aria-hidden="true">
           <label htmlFor="contact-website">Laisser ce champ vide</label>
           <input id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
         </div>
+        {/* La pression anime le bouton sans modifier sa taille dans la mise en page. */}
         <m.button
           className="contact-submit"
           type="submit"
@@ -39,6 +49,7 @@ function ContactForm(): JSX.Element {
           transition={{ duration: 0.12, ease: 'easeOut' }}
         >
           <span>{isSending ? 'Envoi en cours…' : 'Envoyer le message'}</span>
+          {/* L’indicateur reste visible mais fixe si le visiteur a demandé moins de mouvements. */}
           {isSending ? (
             <m.svg
               className="contact-submit-icon"
@@ -56,6 +67,7 @@ function ContactForm(): JSX.Element {
           ) : <ArrowIcon className="contact-submit-icon" />}
         </m.button>
       </fieldset>
+      {/* La zone existe dès le premier rendu pour annoncer ses mises à jour ; data-state pilote sa couleur en CSS. */}
       <p className="contact-status" data-state={status} role="status" aria-live="polite" aria-atomic="true">
         {status === 'success' && (
           // La coche apparaît uniquement après la réussite de l’envoi ; le texte reste immédiatement lisible.

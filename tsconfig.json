@@ -1,5 +1,7 @@
 {
+  /* Point d’entrée de `tsc -b` : ce fichier coordonne les projets sans compiler lui-même de sources. */
   "files": [],
+  /* Séparer navigateur et Node évite d’autoriser par erreur les API du DOM dans le serveur. */
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }

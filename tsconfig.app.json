@@ -1,31 +1,43 @@
 {
+  /* Vérification de l’interface ; Vite reste responsable de produire les fichiers JavaScript et CSS. */
   "compilerOptions": {
+    /* Le cache de `tsc -b` reste avec les dépendances, hors des sources et de l’historique Git. */
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    /* Les API connues comprennent JavaScript moderne, le DOM et ses collections itérables. */
     "target": "es2023",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "esnext",
+    /* Déclarations des imports de ressources et d’import.meta propres au client Vite. */
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
+    /* Évite de revérifier les .d.ts des dépendances ; le code du projet reste contrôlé. */
     "skipLibCheck": true,
 
-    /* Résolution des modules par Vite. */
+    /* Le résolveur suit les conventions du bundler, notamment les exports des paquets. */
     "moduleResolution": "bundler",
+    /* Les imports terminés par .ts sont possibles puisque TypeScript n’émet pas de JavaScript ici. */
     "allowImportingTsExtensions": true,
+    /* Les imports de types doivent être explicites ; chaque fichier garde sa propre portée de module. */
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
+    /* Utilise la transformation JSX moderne, sans imposer `import React` à chaque composant. */
     "jsx": "react-jsx",
 
     /* Les données facultatives et les accès indexés exigent une vérification explicite. */
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    /* Un chemin d’import doit garder la même casse, y compris sur les serveurs Linux. */
     "forceConsistentCasingInFileNames": true,
+    /* Détecte les retours manquants et le code devenu inutile après une modification. */
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    /* Refuse les constructions TypeScript qui nécessiteraient du code généré, comme les enum. */
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
+  /* Les modules partagés importés depuis src sont aussi suivis par TypeScript. */
   "include": ["src"]
 }
