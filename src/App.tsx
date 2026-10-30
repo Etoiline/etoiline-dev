@@ -73,7 +73,11 @@ function App(): JSX.Element {
       </main>
 
       <footer className="site-footer page-width">
-        <span>© {currentYear} {portfolio.name}</span>
+        <div className="footer-info">
+          <span>© {currentYear} {portfolio.name}</span>
+          {/* Vite fournit la version de package.json, commune au HTML pré-rendu et au navigateur. */}
+          <span className="site-version">Version {__APP_VERSION__}</span>
+        </div>
         {/* L’ancre #accueil est portée par Hero et permet le retour en haut sans recharger la page. */}
         <a className="plain-link" href="#accueil">Retour en haut ↑</a>
       </footer>

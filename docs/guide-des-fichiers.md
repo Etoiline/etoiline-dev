@@ -126,6 +126,11 @@ en charge le TSX et l’actualisation de développement. Le script de pré-rendu
 aussi Vite en complétant ces options pour produire un module Node temporaire.
 Ce fichier ne déclare ni clé Brevo ni serveur de messagerie.
 
+Il lit le champ `version` de `package.json` et le fournit à l’interface via la
+constante `__APP_VERSION__`. Seul ce numéro est injecté ; les autres champs du
+manifeste ne sont pas importés par les composants React. Le pré-rendu réutilise
+la même définition pour afficher la même version avant et après l’hydratation.
+
 ### `tsconfig.json`
 
 Projet de coordination utilisé par `tsc -b`. Sa liste `files` vide laisse la sélection
@@ -185,6 +190,13 @@ de la navigation. Le composant ne porte pas la logique d’envoi des e-mails.
 L’année du pied de page est évaluée au chargement du module, pendant le build puis
 dans le navigateur. Les textes généraux restent ici ; les informations réutilisées
 et les projets proviennent de `src/data/portfolio.ts`.
+La version affichée à côté du crédit est fournie par Vite depuis `package.json`.
+
+### `src/vite-env.d.ts`
+
+Déclare le type de `__APP_VERSION__` pour que TypeScript reconnaisse cette constante
+dans les composants. Ce fichier de déclarations ne fournit pas de valeur à l’exécution :
+Vite effectue le remplacement à partir de sa configuration, pour le client et le pré-rendu.
 
 ### `src/index.css`
 

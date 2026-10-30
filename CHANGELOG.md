@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 - 2026-10-30
+
+- Display the package version in the footer, including prerendered HTML.
+
 - Clarify the needs described in the Crin Serein case study.
 
 - Add detailed French comments across sources, styles, configuration, and public assets.

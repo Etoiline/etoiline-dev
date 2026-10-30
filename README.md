@@ -417,6 +417,7 @@ La saisie et l’envoi du formulaire sont délégués aux composants et au serve
 - `src/App.tsx` : composition des sections, navigation, présentation et contact.
 - `src/data/portfolio.ts` : profil, groupes de compétences et projets.
 - `src/types/portfolio.ts` : contrats éditoriaux partagés.
+- `src/vite-env.d.ts` : déclaration TypeScript de la version publique fournie par Vite.
 - `src/components/` : `Header`, `Hero`, `Stack`, listes de technologies, icônes, liens animés et configuration Motion.
 - `src/features/projects/ProjectCard.tsx` : aperçu, capture et liens du projet.
 - `src/features/projects/ProjectCaseStudy.tsx` : ouverture native immédiate, récit STAR et contributions IA.
@@ -443,6 +444,12 @@ La saisie et l’envoi du formulaire sont délégués aux composants et au serve
 Le champ `version` de `package.json` est la source de vérité du numéro de version.
 `package-lock.json` reprend ce numéro au niveau racine et dans l’entrée du projet.
 Chaque version créée est repérée par un tag Git `vX.Y.Z`.
+
+Le pied de page affiche « Version X.Y.Z ». `vite.config.ts` lit le numéro du manifeste
+et l’injecte avec l’option [`define` de Vite](https://vite.dev/config/shared-options.html#define)
+dans le navigateur et le pré-rendu. `src/vite-env.d.ts` déclare cette constante pour
+TypeScript. Recompiler et redéployer après un changement de version ; en développement,
+redémarrer Vite pour charger le nouveau numéro.
 
 Le [changelog](CHANGELOG.md) regroupe les changements sous un titre contenant la version
 et sa date, au format `## X.Y.Z - YYYY-MM-DD`, comme dans les autres projets.

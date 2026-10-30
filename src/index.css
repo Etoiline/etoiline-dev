@@ -183,6 +183,9 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 .contact-status[data-state='error'] { color: #a52a43; }
 /* Le pied de page conserve l’alignement page-width et sépare le crédit du lien de retour à l’accueil. */
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 25px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+/* Les métadonnées peuvent passer sur deux lignes sur mobile, en gardant le numéro de version entier. */
+.footer-info { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; min-width: 0; }
+.site-version { white-space: nowrap; }
 .site-footer .plain-link { font-size: 11px; }
 
 /* Réduit d’abord les marges et les écarts avant de changer la structure des grilles. */
