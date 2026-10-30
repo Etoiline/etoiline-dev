@@ -119,30 +119,104 @@ Mouv’Air, sans ajouter de titres ou de blocs au résumé initial de la fiche.
 
 Le formulaire demande un nom, une adresse e-mail et un message. Il appelle la fonction
 Vercel `/api/contact`, qui transmet un e-mail en texte brut à `contact@etoiline.dev`
-avec [Resend](https://resend.com/docs/api-reference/emails/send-email).
+avec [l’API transactionnelle Brevo](https://developers.brevo.com/docs/send-a-transactional-email).
 L’adresse du visiteur est utilisée pour les réponses ; le destinataire reste fixé
 côté serveur. Les champs sont conservés en cas d’échec et vidés uniquement après
 confirmation du service d’envoi.
 
+Le dossier `api/` suit la convention de routage de Vercel : `api/contact.ts` expose
+`/api/contact` avec la fonction `fetch` de son export par défaut. Ce fichier relie
+l’hébergeur au traitement dans `server/contact.ts`, qui utilise les objets
+`Request` et `Response` et conserve la validation et l’appel à Brevo côté serveur.
+Pour utiliser un autre hébergeur compatible avec Node.js, ce traitement peut être
+réutilisé en adaptant le point d’entrée ; ce dossier ne crée pas de route dans Vite.
+
+### Rôle des fichiers du formulaire
+
+Le navigateur appelle la route du portfolio. C’est le code exécuté sur Vercel qui
+contacte ensuite Brevo par HTTP ; aucune bibliothèque Brevo n’est installée dans
+les dépendances du projet. Les responsabilités se répartissent ainsi :
+
+| Fichier | Rôle | Moment d’utilisation |
+| --- | --- | --- |
+| `api/contact.ts` | Relier une requête reçue sur Vercel au gestionnaire du formulaire. | Lorsqu’une requête appelle `/api/contact`. |
+| `server/contact.ts` | Contrôler la requête, valider les champs, préparer l’e-mail et demander son envoi à Brevo. | Côté serveur, pendant le traitement de la requête. |
+| `.env.example` | Décrire les variables attendues et le format de l’adresse d’expédition. | Comme modèle pour la configuration locale ou Vercel. |
+| `tests/contact.test.mjs` | Vérifier les demandes et les réponses avec une configuration fictive et des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
+
+La présence de ces fichiers ne crée aucun compte Brevo et n’ajoute aucune variable
+dans Vercel. Il faut configurer une clé API et un expéditeur autorisé sur le compte
+Brevo utilisé. Le pré-rendu du site est indépendant de cet envoi : il prépare le
+contenu HTML pendant le build, tandis que le traitement du contact intervient
+lorsqu’un visiteur soumet le formulaire.
+
+### Configuration de l’envoi
+
 Pour activer l’envoi sur Vercel :
 
-1. [Vérifier le domaine `etoiline.dev` dans Resend](https://resend.com/docs/dashboard/domains/introduction)
-   avec les enregistrements DNS indiqués par le service, puis créer une clé d’envoi.
-2. Ajouter `RESEND_API_KEY` aux variables d’environnement du projet Vercel pour les
-   environnements souhaités. `CONTACT_FROM` permet de remplacer l’expéditeur par défaut,
-   `Etoiline <contact@etoiline.dev>`, avec une adresse d’un domaine vérifié.
-3. Redéployer le projet. Les secrets restent côté serveur et n’utilisent jamais de
-   préfixe `VITE_`. Le fichier `.env.example` décrit les variables attendues.
+1. Dans le compte Brevo existant, configurer le domaine d’envoi et l’expéditeur
+   `contact@etoiline.dev`, puis vérifier que l’envoi d’e-mails transactionnels est actif.
+   Le [guide d’envoi Brevo](https://developers.brevo.com/docs/send-a-transactional-email)
+   détaille les prérequis.
+2. Créer une [clé API Brevo](https://help.brevo.com/hc/en-us/articles/40159485019794-Create-and-manage-your-API-keys)
+   autorisée à envoyer des e-mails transactionnels, depuis les paramètres **SMTP & API**.
+   L’intégration utilise l’API HTTP : une clé SMTP ne convient pas.
+3. Ajouter `BREVO_API_KEY` aux variables d’environnement du projet Vercel pour les
+   environnements souhaités, notamment **Production**. `CONTACT_FROM` permet de remplacer
+   l’adresse d’expédition par défaut, `contact@etoiline.dev`, par un autre expéditeur
+   configuré dans Brevo. Sa valeur est une adresse seule, sans nom ni chevrons ; le nom
+   affiché reste `Etoiline` et le destinataire reste fixé dans le code serveur.
+4. Redéployer le projet. Les secrets restent côté serveur et n’utilisent jamais de
+   préfixe `VITE_`. Le fichier `.env.example` décrit les variables attendues. Sans
+   `BREVO_API_KEY`, l’API répond `503` et aucun e-mail n’est envoyé.
 
 `npm run dev` et `npm run preview` servent l’interface seule. Pour utiliser aussi la
 fonction localement, copier `.env.example` dans `.env.local`, renseigner la clé, puis
 lancer [`npx vercel dev`](https://vercel.com/docs/cli/dev). Cette commande peut demander
 de relier le dossier au projet Vercel existant. Un envoi depuis cet environnement
-contacte réellement Resend ; les tests automatisés remplacent ce service.
+contacte réellement Brevo ; les tests automatisés remplacent ce service.
 
 Le serveur valide les champs, limite les requêtes à 20 Ko, vérifie leur origine et
 rejette un champ leurre rempli. Les tentatives identiques utilisent une clé de
-déduplication Resend. Le portfolio ne stocke pas les messages en base de données.
+déduplication Brevo, au format UUID dans le champ `headers.idempotencyKey` du corps
+JSON. Cette protection s’applique pendant la fenêtre de déduplication du prestataire.
+Un refus de doublon reste une erreur : le formulaire ne confirme le succès que si
+Brevo fournit un `messageId` non vide. Le portfolio ne stocke pas les messages en
+base de données.
+
+### Déroulement et réponses de l’API
+
+1. Le gestionnaire vérifie la méthode HTTP, l’origine, le format annoncé et la taille
+   réelle du corps reçu. Une requête refusée à ce stade ne contacte pas Brevo.
+2. `shared/contact.ts` valide et nettoie le nom, l’e-mail et le message, puis contrôle
+   le champ leurre. Cette validation serveur reste nécessaire même si le formulaire
+   applique déjà des contraintes dans le navigateur.
+3. Le serveur prépare un e-mail texte avec un destinataire fixe. L’adresse du visiteur
+   sert aux réponses, sans remplacer l’expéditeur configuré. Un UUID calculé à partir
+   de cet e-mail permet à Brevo de reconnaître une nouvelle tentative identique.
+4. L’appel à Brevo dispose d’un délai de dix secondes. Le serveur confirme le succès
+   uniquement si la réponse contient un `messageId` non vide ; cela confirme une prise
+   en charge, sans garantir que l’e-mail est déjà arrivé dans la boîte de réception.
+
+Les principaux statuts renvoyés par ce gestionnaire permettent de repérer l’étape
+qui a échoué, notamment dans les journaux Vercel :
+
+| Statut | Signification dans ce code |
+| --- | --- |
+| `200` | Brevo a confirmé la prise en charge de la demande d’envoi. |
+| `400` | Le corps est absent ou illisible comme JSON. |
+| `403` | L’origine ne correspond pas au protocole, à l’hôte et au port de l’URL appelée. |
+| `405` | La requête utilise une autre méthode que POST. |
+| `413` | Le corps JSON dépasse la limite de 20 000 octets. |
+| `415` | Le format annoncé n’est pas `application/json`. |
+| `422` | Les champs sont invalides ou le champ leurre est rempli. |
+| `503` | La clé `BREVO_API_KEY` est absente ou vide. |
+| `502` | Brevo refuse la demande, ne répond pas à temps ou ne fournit pas de confirmation valide. |
+
+Les tests simulent ces échanges et les erreurs du prestataire. Ils vérifient le
+comportement du code et la protection des informations privées dans ses réponses ;
+la configuration du compte Brevo et la réception réelle des e-mails nécessitent
+une vérification distincte sur l’environnement déployé.
 
 ### Protection contre le spam et les robots
 
@@ -155,7 +229,7 @@ Pour renforcer les protections existantes :
   sur `POST /api/contact`, par exemple cinq requêtes par adresse IP sur dix minutes,
   avec une réponse `429` lorsque la limite est atteinte.
 - Ajouter [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/)
-  au formulaire et vérifier son jeton côté serveur avant de contacter Resend.
+  au formulaire et vérifier son jeton côté serveur avant de contacter Brevo.
   Le widget côté navigateur doit être complété par cette validation serveur.
 
 Ces deux protections supplémentaires restent à configurer ; Turnstile n’est pas
@@ -237,20 +311,33 @@ seule. Une union discriminée impose les données STAR aux études de cas ; une 
 lie les messages du formulaire à ses états de succès ou d’erreur. Les réponses
 externes restent validées à l’exécution : TypeScript ne valide pas un JSON réseau.
 
-Après la compilation Vite, `scripts/prerender.mjs` utilise le point d’entrée
-`src/entry-server.tsx` pour écrire le contenu React dans `dist/index.html`. Aucun
-serveur de rendu n’est nécessaire en production. Le navigateur hydrate ce même
-arbre avec `hydrateRoot` ; en développement, le montage utilise `createRoot`.
+Lancé automatiquement par `npm run build` après la compilation Vite,
+`scripts/prerender.mjs` utilise le point d’entrée `src/entry-server.tsx` pour écrire
+le contenu React dans `dist/index.html`. Il prépare une page déjà remplie et ne
+s’exécute pas à chaque visite. Aucun serveur de rendu n’est nécessaire en production.
+Le navigateur hydrate ce même arbre avec `hydrateRoot` ; en développement,
+le montage utilise `createRoot`.
+
+Le script réalise trois opérations :
+
+1. Lire le HTML compilé par Vite et vérifier que la racine React vide est présente.
+2. Compiler le point d’entrée de rendu en module JavaScript temporaire dans
+   `node_modules/.tmp/portfolio-prerender/`, puis l’exécuter avec Node.js.
+3. Remplir la racine React avec le contenu produit, en conservant les métadonnées
+   et les liens vers les ressources compilées dans le document HTML.
+
 Les futurs composants doivent donc rendre leur premier affichage sans accès direct
 à `window` ou `document` et conserver un rendu initial identique côté navigateur.
-Le formulaire requiert JavaScript pour l’envoi ; son pré-rendu n’envoie aucun message.
+Le pré-rendu du formulaire écrit uniquement ses champs dans le HTML. JavaScript
+reste nécessaire pour soumettre un message à `/api/contact`, où le serveur traite
+alors l’envoi avec la configuration Brevo.
 
 Le titre, les descriptions de partage, l’URL canonique et les données structurées
 `ProfilePage` / `Person` se trouvent dans `index.html`. `public/robots.txt` et
 `public/sitemap.xml` utilisent le domaine `https://etoiline.dev/` ; les synchroniser
 si le domaine change. Le HTML pré-rendu rend les textes et les liens explorables
-sans attendre le rendu JavaScript, conformément aux
-[recommandations de Google pour les sites JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics).
+sans attendre le rendu JavaScript, ce qui peut faciliter leur indexation. Cette approche suit
+les [recommandations de Google pour les sites JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics).
 Ces dispositions ne constituent pas une garantie de classement ou un audit WCAG complet.
 
 ## Publication
@@ -258,7 +345,7 @@ Ces dispositions ne constituent pas une garantie de classement ou un audit WCAG 
 Le contenu de `dist/`, généré par `npm run build`, peut être publié chez un hébergeur
 de sites statiques. Sur Vercel, le dossier `api/` fournit aussi la fonction d’envoi
 du formulaire ; copier uniquement `dist/` sur un autre hébergeur ne suffit pas à
-faire fonctionner l’envoi. La clé Resend doit être configurée sur le serveur.
+faire fonctionner l’envoi. La clé API Brevo doit être configurée sur le serveur.
 Les métadonnées se trouvent dans `index.html` et le favicon dans `public/favicon.svg`.
 Publier le résultat de `npm run build`, qui inclut le pré-rendu et les fichiers SEO.
 
@@ -275,7 +362,7 @@ Publier le résultat de `npm run build`, qui inclut le pré-rendu et les fichier
 - `src/lib/contact.ts` : appel de l’API depuis le navigateur.
 - `shared/contact.ts` : règles de validation communes.
 - `api/contact.ts` : entrée de la fonction Vercel.
-- `server/contact.ts` : adresse de réception, validation serveur et appel de Resend.
+- `server/contact.ts` : adresse de réception, validation serveur et appel de Brevo.
 - `tests/contact.test.mjs` : scénarios d’envoi simulés et cas d’erreur.
 - `src/main.tsx` : point d’entrée React.
 - `src/entry-server.tsx` : rendu React utilisé uniquement à la compilation.

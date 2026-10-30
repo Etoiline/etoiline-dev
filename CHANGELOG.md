@@ -1,5 +1,9 @@
 # Changelog
 
+- Switch contact emails from Resend to Brevo with API key configuration, UUID deduplication,
+  and simulated tests.
+- Explain the contact request flow, deployment configuration, tests, and HTML prerendering in French.
+
 - Remove the hero action buttons and their unused styles and press animation.
 - Add PostgreSQL and Docker to the backend stack note.
 
