@@ -1,5 +1,7 @@
 # Changelog
 
+- Clarify the needs described in the Crin Serein case study.
+
 - Add detailed French comments across sources, styles, configuration, and public assets.
 - Add a file-by-file guide explaining application flows, dependencies, and generated files.
 

@@ -103,7 +103,8 @@ export const projects: readonly Project[] = [
     },
     technologies: ['React', 'TypeScript strict', 'React Router', 'TanStack Query', 'FastAPI / Python', 'PostgreSQL', 'Vitest', 'Testing Library'],
     caseStudy: {
-      situation: 'Les informations d’un cheval se répartissent entre sa fiche, les soins effectués, les prochaines échéances et les dépenses. Les retrouver et garder un suivi cohérent devient vite fastidieux.',
+      // Le besoin reste centré sur l’organisation du propriétaire ; les choix techniques sont détaillés dans les actions.
+      situation: 'Suivre les soins, anticiper les échéances et gérer les dépenses d’un cheval demande de l’organisation. Lorsque ces informations sont dispersées, il devient difficile de garder une vue d’ensemble et de ne rien oublier.',
       task: 'Concevoir et développer un carnet web qui centralise ces informations pour chaque propriétaire, de la connexion à la gestion quotidienne des chevaux.',
       actions: [
         'Organiser les parcours React par fonctionnalités avec React Router et TanStack Query, puis les relier à une API FastAPI et à PostgreSQL.',

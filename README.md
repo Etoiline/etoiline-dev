@@ -108,6 +108,9 @@ de la vérification ; modifier sa visibilité dans les données s’il devient p
 
 ### Sources et limites de l’étude de cas Crin Serein
 
+Le bloc « Le besoin » décrit l’organisation des soins, des échéances et des dépenses,
+ainsi que la difficulté à garder une vue d’ensemble lorsque ces informations sont dispersées.
+
 La fiche s’appuie sur le code, les manifestes et les README du frontend et de l’API :
 React, TypeScript strict, React Router et TanStack Query ; FastAPI / Python et
 PostgreSQL ; Vitest et Testing Library. Les exemples techniques concernent les
