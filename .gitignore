@@ -16,6 +16,14 @@ dist-ssr
 !.env.example
 .vercel
 
+# Fichiers de clés privées et identifiants locaux : les modèles publics doivent rester sans secret.
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+credentials.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

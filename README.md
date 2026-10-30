@@ -349,6 +349,43 @@ faire fonctionner l’envoi. La clé API Brevo doit être configurée sur le ser
 Les métadonnées se trouvent dans `index.html` et le favicon dans `public/favicon.svg`.
 Publier le résultat de `npm run build`, qui inclut le pré-rendu et les fichiers SEO.
 
+## Publication du dépôt et secrets
+
+La clé `BREVO_API_KEY` doit être configurée uniquement dans Vercel ou dans un fichier
+`.env.local` ignoré par Git. Ne pas la placer dans les sources, dans `public/`, dans
+une variable préfixée par `VITE_` ou dans une capture d’écran. `.env.example` conserve
+une valeur vide ; les tests utilisent une chaîne explicitement fictive.
+
+`.gitignore` exclut les fichiers d’environnement locaux, la configuration Vercel,
+les ressources compilées, les identifiants npm locaux et les formats courants de
+clés privées. Ces exclusions ne retirent pas un fichier déjà suivi ni un secret
+présent dans un ancien commit.
+
+Avant de rendre le dépôt public, contrôler les fichiers actuels et l’historique
+des branches et des tags. Avec [Gitleaks](https://github.com/gitleaks/gitleaks)
+installé, lancer depuis le dépôt :
+
+```sh
+gitleaks git --log-opts="--all --full-history -m" --redact
+npm audit
+npm run lint
+npm test
+npm run build
+```
+
+Si une vraie clé a été enregistrée dans Git, la révoquer chez son fournisseur puis
+la remplacer ; supprimer sa ligne du dernier fichier ne la retire pas de l’historique.
+Ne pas publier les fichiers locaux ni les rapports d’audit contenant des données sensibles.
+
+Vite exige au minimum la version `8.3.3`, qui corrige les vulnérabilités du serveur
+de développement présentes en `8.3.0` à `8.3.2`. Les deux fichiers de verrouillage
+npm et pnpm doivent conserver une version corrigée. Le site publié utilise les
+ressources compilées, sans exposer le serveur Vite de développement.
+
+Un dépôt public rend aussi visibles les adresses de contact présentes dans les
+sources et les identités des auteurs des commits. Ces informations ne sont pas des
+clés secrètes ; conserver leur présence en connaissance de cause.
+
 ## Structure
 
 - `src/App.tsx` : composition des sections, navigation, présentation et contact.

@@ -1,5 +1,8 @@
 # Changelog
 
+- Update Vite to 8.3.5 to address development server vulnerabilities.
+- Exclude private key files and local credentials, and document repository publication checks.
+
 - Switch contact emails from Resend to Brevo with API key configuration, UUID deduplication,
   and simulated tests.
 - Explain the contact request flow, deployment configuration, tests, and HTML prerendering in French.
