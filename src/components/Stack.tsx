@@ -18,7 +18,7 @@ export default function Stack({ groups }: StackProps): JSX.Element {
             </li>
           ))}
         </ul>
-        <p className="stack-note">Je m’appuie aussi sur FastAPI pour développer les API de mes projets personnels.</p>
+        <p className="stack-note">Je m’appuie aussi sur FastAPI, PostgreSQL et Docker pour développer le backend de mes projets personnels.</p>
       </div>
     </section>
   )

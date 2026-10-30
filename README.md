@@ -64,12 +64,13 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
 
 1. **Accueil** : « Front-End React. Du produit, plus vite. », trois ans d’expérience,
    React / TypeScript / React Native, démarche IA et CDI 100 % télétravail.
-   Le bouton « Échangeons sur le poste » donne accès au formulaire de contact.
+   La navigation de l’en-tête donne accès aux projets et au contact.
 2. **Projets** : un titre unique, puis une capture, une description courte, les
    technologies et les liens de chaque application. Le lien « Voir l’étude de cas »
    déplie le récit STAR, la méthode IA et la chronologie de Mouv’Air comme de Crin Serein.
 3. **Stack** : web, mobile et intégration / accessibilité, avec un usage concret
-   plutôt qu’une jauge subjective de maîtrise.
+   plutôt qu’une jauge subjective de maîtrise. Une note mentionne aussi FastAPI,
+   PostgreSQL et Docker pour le backend des projets personnels.
 4. **À propos** : responsabilité technique, méthode de travail et équipe recherchée.
 5. **Contact** : titre direct, puis invitation à présenter une équipe, un produit
    et un poste, sans mention de disponibilité au-dessus du titre.
@@ -165,7 +166,7 @@ aux collecteurs d’adresses sur la page.
 
 La page conserve la palette ivoire et violette, la typographie sans sérif et
 l’illustration vectorielle de l’étoile Etoiline. L’accueil privilégie le positionnement
-professionnel et les accès aux projets et au contact. Les sections sont délimitées
+professionnel. Les sections sont délimitées
 par des bandes sur toute la largeur : fond blanc pour Projets, lavande pour Stack
 et Contact, ivoire pour À propos. Le contenu conserve les mêmes alignements.
 Les titres reprennent les libellés de navigation : **Projets**, **Stack**, **À propos**
@@ -203,13 +204,13 @@ les textes pendant la lecture :
 - Le menu affiche un soulignement violet au survol et au focus clavier, en 150 ms.
   Le trait reste hors du flux pour ne pas déplacer les liens.
 - L’étoile du logo tourne de 45° au survol et au focus clavier, en 200 ms.
-- Le bouton principal du Hero et celui du formulaire passent à l’échelle 0,98 pendant
+- Le bouton du formulaire passe à l’échelle 0,98 pendant
   la pression, avec une transition de 120 ms.
 - Pendant l’envoi, le bouton du formulaire affiche un indicateur rotatif. Sa largeur
   minimale et son emplacement d’icône limitent les variations de taille entre les états.
   Après confirmation de réussite, une coche se dessine en 200 ms à côté du message
   accessible ; le texte s’affiche immédiatement, y compris en cas d’erreur.
-- Les flèches des liens du Hero et des liens externes se décalent de 3 px au survol
+- Les flèches des liens externes se décalent de 3 px au survol
   et au focus clavier, avec une transition de 150 ms.
 - Les captures des projets passent de l’échelle 1 à 1,02 en 200 ms. Leur cadre masque
   le débordement pour conserver les dimensions de la mise en page.

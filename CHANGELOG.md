@@ -1,5 +1,8 @@
 # Changelog
 
+- Remove the hero action buttons and their unused styles and press animation.
+- Add PostgreSQL and Docker to the backend stack note.
+
 - Refresh the recruitment-focused hero and stack section, and document both projects
   with STAR case studies and AI workflows.
 - Improve section separation and add reduced-motion-aware interactions, including

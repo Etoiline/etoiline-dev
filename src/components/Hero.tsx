@@ -1,6 +1,5 @@
 import type { JSX } from 'react'
 import type { PortfolioProfile } from '../types/portfolio'
-import AnimatedLink from './AnimatedLink'
 
 type HeroProps = Readonly<{ profile: PortfolioProfile }>
 
@@ -30,10 +29,6 @@ export default function Hero({ profile }: HeroProps): JSX.Element {
           {' '}L’IA accélère mon delivery ; je garde la main sur l’architecture, le typage et la qualité du code.
         </p>
         <p className="availability"><span aria-hidden="true" />{profile.availability}</p>
-        <div className="hero-actions">
-          <AnimatedLink className="button-link" href="#contact" pressable>Échangeons sur le poste</AnimatedLink>
-          <AnimatedLink className="plain-link" href="#projets">Voir mes projets</AnimatedLink>
-        </div>
       </div>
       <OrbitArtwork />
     </section>

@@ -8,14 +8,12 @@ type AnimatedLinkProps = Readonly<{
   children: ReactNode
   className?: string
   diagonal?: boolean
-  pressable?: boolean
   target?: HTMLAttributeAnchorTarget
   rel?: string
 }>
 
-export default function AnimatedLink({ children, diagonal = false, pressable = false, ...props }: AnimatedLinkProps): JSX.Element {
-  const reducedMotion = useReducedMotion()
-  const interaction = reducedMotion ? 'rest' : 'active'
+export default function AnimatedLink({ children, diagonal = false, ...props }: AnimatedLinkProps): JSX.Element {
+  const interaction = useReducedMotion() ? 'rest' : 'active'
 
   // L’état de repos est aussi celui du HTML pré-rendu, sans apparition masquée.
   return (
@@ -25,8 +23,6 @@ export default function AnimatedLink({ children, diagonal = false, pressable = f
       animate="rest"
       whileHover={interaction}
       whileFocus={interaction}
-      whileTap={{ scale: pressable && !reducedMotion ? 0.98 : 1 }}
-      transition={{ duration: 0.12, ease: 'easeOut' }}
     >
       {children}
       <m.span

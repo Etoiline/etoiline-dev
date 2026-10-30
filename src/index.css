@@ -44,7 +44,7 @@ a svg { flex-shrink: 0; width: 19px; height: 19px; }
 /* Le trait est décoratif et reste hors du flux pour ne pas déplacer la navigation. */
 .nav-underline { position: absolute; right: 0; bottom: 7px; left: 0; height: 2px; border-radius: 1px; background: var(--purple); transform-origin: left center; pointer-events: none; }
 
-/* Le positionnement et les accès au recrutement restent prioritaires sur l’illustration. */
+/* Le positionnement professionnel reste prioritaire sur l’illustration. */
 .hero { display: grid; grid-template-columns: 1.5fr 0.8fr; gap: 44px; align-items: center; padding-block: 75px 85px; }
 h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; }
 h1 { font-size: clamp(44px, 4.8vw, 66px); line-height: 1.12; letter-spacing: -2.9px; font-weight: 750; }
@@ -55,9 +55,6 @@ h1 > span { color: var(--purple); }
 .hero-description strong { color: var(--ink); font-weight: 500; }
 .availability { display: inline-flex; align-items: center; gap: 9px; margin-top: 24px; font-size: 13px; font-weight: 500; }
 .availability > span { width: 7px; height: 7px; border-radius: 50%; background: #2e6654; }
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; margin-top: 27px; }
-.button-link { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 46px; padding: 13px 19px; border: 1px solid var(--purple); border-radius: 4px; background: var(--purple); color: white; font-size: 14px; font-weight: 500; }
-.button-link:hover { background: #5f419f; }
 .plain-link { display: inline-flex; align-items: center; gap: 11px; min-height: 44px; font-size: 14px; font-weight: 500; }
 .link-arrow { display: inline-flex; flex-shrink: 0; }
 .plain-link .link-arrow svg { width: 16px; height: 16px; }
