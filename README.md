@@ -30,6 +30,15 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
   dans `dist/index.html` pour rendre le contenu disponible sans JavaScript.
 - `npm run preview` : prévisualiser le site compilé.
 
+### Résolution des dépendances sous Windows
+
+Avec pnpm, les dépendances de `node_modules` utilisent des jonctions vers le dossier
+`.pnpm`. L’environnement qui lance TypeScript doit pouvoir résoudre ces liens.
+Un refus d’accès `EPERM` sur `realpath` peut provoquer des erreurs `TS2305` ou
+`TS2339` indiquant à tort que des exports de `motion/react` ou `motion/react-m`
+sont absents. Dans un environnement restreint, relancer `npm run build` avec les
+permissions permettant l’accès à ces jonctions, ou depuis un terminal local autorisé.
+
 ## Contenu et personnalisation
 
 - `src/data/portfolio.ts` centralise le profil, les compétences et les projets.
