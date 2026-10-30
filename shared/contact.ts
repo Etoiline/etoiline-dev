@@ -24,7 +24,7 @@ export function parseContactMessage(value: unknown): ContactMessage | null {
   const name = fields.name.trim()
   const email = fields.email.trim()
   const message = fields.message.trim()
-  const website = (fields.website as string | undefined)?.trim() || ''
+  const website = fields.website?.trim() || ''
 
   // Le champ leurre est facultatif pour les visiteurs et doit rester vide.
   if (website || name.length < contactLimits.nameMin || name.length > contactLimits.nameMax) return null

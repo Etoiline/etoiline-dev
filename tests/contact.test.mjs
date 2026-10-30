@@ -151,6 +151,6 @@ test('le client attend une confirmation JSON explicite de la même API', async (
 
 test('le client explique les limites et les erreurs réseau sans exposer leur détail', async () => {
   await assert.rejects(sendContactMessage(message, async () => new Response('', { status: 429 })), /tentatives rapprochées/)
-  await assert.rejects(sendContactMessage(message, async () => new Response('', { status: 422 })), /Vérifie ton nom/)
-  await assert.rejects(sendContactMessage(message, async () => { throw new Error('private-network-error') }), /Ton message est conservé/)
+  await assert.rejects(sendContactMessage(message, async () => new Response('', { status: 422 })), /Vérifiez votre nom/)
+  await assert.rejects(sendContactMessage(message, async () => { throw new Error('private-network-error') }), /Votre message est conservé/)
 })

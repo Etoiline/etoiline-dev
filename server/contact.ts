@@ -59,7 +59,7 @@ export function createContactHandler({ env = process.env, send = fetch }: Contac
     if (request.headers.get('origin') !== new URL(request.url).origin) {
       return reply(403, { error: 'Origine non autorisée.' })
     }
-    if (request.headers.get('content-type')?.split(';')[0].trim() !== 'application/json') {
+    if (request.headers.get('content-type')?.split(';')[0]?.trim() !== 'application/json') {
       return reply(415, { error: 'Format de message non pris en charge.' })
     }
 

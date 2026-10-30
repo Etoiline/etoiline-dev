@@ -1,5 +1,12 @@
 # Changelog
 
+- Refresh the recruitment-focused hero and stack section, and document both projects
+  with STAR case studies and AI workflows.
+- Improve section separation and add reduced-motion-aware interactions, including
+  a 45° logo rotation and contact submission feedback.
+- Enable stricter TypeScript checks and organize shared components and project/contact features.
+- Prerender portfolio content and add canonical metadata, structured data, robots.txt and a sitemap.
+
 ## 0.2.0 - 2026-10-28
 
 - Add an accessible contact form with Vercel and Resend email delivery and submission feedback.

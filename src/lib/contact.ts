@@ -1,6 +1,6 @@
 import type { ContactMessage } from '../../shared/contact.ts'
 
-const unavailableMessage = 'L’envoi est indisponible pour le moment. Ton message est conservé ; tu peux réessayer plus tard.'
+const unavailableMessage = 'L’envoi est indisponible pour le moment. Votre message est conservé ; vous pouvez réessayer plus tard.'
 
 export async function sendContactMessage(message: ContactMessage, send: typeof fetch = fetch): Promise<void> {
   let response: Response
@@ -12,12 +12,12 @@ export async function sendContactMessage(message: ContactMessage, send: typeof f
       signal: AbortSignal.timeout(15_000),
     })
   } catch {
-    throw new Error('La connexion a échoué. Ton message est conservé ; tu peux réessayer.')
+    throw new Error('La connexion a échoué. Votre message est conservé ; vous pouvez réessayer.')
   }
 
   if (!response.ok) {
-    if (response.status === 429) throw new Error('Trop de tentatives rapprochées. Attends quelques minutes avant de réessayer.')
-    if (response.status === 422) throw new Error('Vérifie ton nom, ton adresse e-mail et ton message (10 à 5 000 caractères).')
+    if (response.status === 429) throw new Error('Trop de tentatives rapprochées. Patientez quelques minutes avant de réessayer.')
+    if (response.status === 422) throw new Error('Vérifiez votre nom, votre adresse e-mail et votre message (10 à 5 000 caractères).')
     throw new Error(unavailableMessage)
   }
 
