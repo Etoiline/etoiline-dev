@@ -399,6 +399,25 @@ Un dépôt public rend aussi visibles les adresses de contact présentes dans le
 sources et les identités des auteurs des commits. Ces informations ne sont pas des
 clés secrètes ; conserver leur présence en connaissance de cause.
 
+## Droits d’utilisation
+
+© 2026 Etoiline — Tous droits réservés.
+
+Ce dépôt présente le portfolio pour consultation. La réutilisation du code, des textes
+et des visuels originaux dont Etoiline détient les droits nécessite une autorisation
+préalable, sous réserve des exceptions légales et des autorisations déjà applicables.
+Les ressources tierces conservent leurs propres licences.
+
+Les droits prévus par les [conditions d’utilisation de GitHub](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#5-license-grant-to-other-users),
+notamment la consultation et le fork d’un dépôt public dans le service, restent applicables.
+Consulter [la mention complète dans LICENSE](LICENSE) et utiliser le
+[formulaire de contact](https://etoiline.dev/#contact) pour demander une autorisation.
+
+Le champ `license: UNLICENSED` de `package.json` et de l’entrée du projet dans
+`package-lock.json` signale l’absence de licence générale de réutilisation. Le pied
+de page du site rappelle les droits réservés. Aucune adresse e-mail personnelle
+n’est nécessaire dans cette mention.
+
 ## Structure
 
 Le [guide des fichiers](docs/guide-des-fichiers.md) détaille le rôle de chaque fichier

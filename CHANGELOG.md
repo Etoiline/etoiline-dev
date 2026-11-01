@@ -1,5 +1,8 @@
 # Changelog
 
+- Add an all-rights-reserved notice and UNLICENSED project metadata.
+- Display reserved rights in the footer and document reuse conditions in French.
+
 ## 0.3.0 - 2026-10-30
 
 - Display the package version in the footer, including prerendered HTML.

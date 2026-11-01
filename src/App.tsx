@@ -74,7 +74,8 @@ function App(): JSX.Element {
 
       <footer className="site-footer page-width">
         <div className="footer-info">
-          <span>© {currentYear} {portfolio.name}</span>
+          {/* LICENSE précise la portée des droits réservés et conserve les licences des ressources tierces. */}
+          <span>© {currentYear} {portfolio.name} — Tous droits réservés</span>
           {/* Vite fournit la version de package.json, commune au HTML pré-rendu et au navigateur. */}
           <span className="site-version">Version {__APP_VERSION__}</span>
         </div>

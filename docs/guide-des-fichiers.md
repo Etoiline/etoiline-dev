@@ -44,6 +44,15 @@ Point de départ pour installer, lancer, personnaliser et déployer le portfolio
 Il décrit aussi le formulaire, les variables privées, les vérifications et les
 protections à configurer. Le présent guide développe l’organisation fichier par fichier.
 
+### `LICENSE`
+
+Mention de droits réservés pour les créations originales dont Etoiline détient les
+droits : code, textes et visuels du portfolio. Elle précise la nécessité d’une
+autorisation préalable de réutilisation, les exceptions légales et les autorisations
+déjà applicables, dont les usages prévus par GitHub pour un dépôt public.
+Les bibliothèques, polices et autres ressources tierces conservent leurs propres licences.
+Les demandes passent par le formulaire du site, sans publier d’adresse personnelle.
+
 ### `AGENTS.md`
 
 Instructions destinées aux agents qui travaillent dans le dépôt : commentaires et
@@ -78,6 +87,10 @@ Décrit le projet, sa version, ses dépendances directes et les commandes dispon
 `type: module` choisit les modules JavaScript ESM. `private: true` empêche une publication
 npm involontaire ; ce champ ne rend pas le dépôt GitHub privé.
 
+`license: UNLICENSED` indique qu’aucune licence générale de réutilisation n’est
+accordée pour les créations du portfolio. Les conditions détaillées sont dans
+`LICENSE` ; les licences propres aux dépendances restent applicables.
+
 Les dépendances applicatives sont React, React DOM et Motion. Les outils de développement
 comprennent TypeScript, Vite, son plugin React, Oxlint et les déclarations de types.
 Les paquets marqués `@types/` fournissent des informations au compilateur, sans ajouter
@@ -97,6 +110,9 @@ Enregistre l’arbre de dépendances résolu par npm, avec versions, origines et
 de contrôle des paquets. Il permet notamment une installation reproductible avec
 `npm ci`. Une empreinte `integrity` décrit le contenu d’une archive : elle ne donne
 pas accès à un service et ne constitue pas une clé API.
+
+L’entrée du projet, `packages[""]`, reprend aussi `license: UNLICENSED` depuis
+`package.json`. Cette métadonnée ne modifie pas les licences des dépendances.
 
 Ne pas ajouter de commentaires ou modifier manuellement les empreintes. Faire évoluer
 les dépendances avec npm, puis relire les différences de versions et les vérifications.
@@ -191,6 +207,8 @@ L’année du pied de page est évaluée au chargement du module, pendant le bui
 dans le navigateur. Les textes généraux restent ici ; les informations réutilisées
 et les projets proviennent de `src/data/portfolio.ts`.
 La version affichée à côté du crédit est fournie par Vite depuis `package.json`.
+La mention « Tous droits réservés » renvoie aux conditions de `LICENSE` et reprend
+le nom public du profil, sans ajouter d’adresse e-mail dans le pied de page.
 
 ### `src/vite-env.d.ts`
 
