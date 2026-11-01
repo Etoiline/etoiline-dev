@@ -1,31 +1,24 @@
 # Changelog
 
+- Normalize changelog spacing and document formatting rules for agents.
 - Add an all-rights-reserved notice and UNLICENSED project metadata.
 - Display reserved rights in the footer and document reuse conditions in French.
 
 ## 0.3.0 - 2026-10-30
 
 - Display the package version in the footer, including prerendered HTML.
-
 - Clarify the needs described in the Crin Serein case study.
-
 - Add detailed French comments across sources, styles, configuration, and public assets.
 - Add a file-by-file guide explaining application flows, dependencies, and generated files.
-
 - Explain App composition, accessibility, prerendering, and component responsibilities in French.
-
 - Document Windows pnpm junction permissions behind misleading Motion TypeScript errors.
-
 - Update Vite to 8.3.5 to address development server vulnerabilities.
 - Exclude private key files and local credentials, and document repository publication checks.
-
 - Switch contact emails from Resend to Brevo with API key configuration, UUID deduplication,
   and simulated tests.
 - Explain the contact request flow, deployment configuration, tests, and HTML prerendering in French.
-
 - Remove the hero action buttons and their unused styles and press animation.
 - Add PostgreSQL and Docker to the backend stack note.
-
 - Refresh the recruitment-focused hero and stack section, and document both projects
   with STAR case studies and AI workflows.
 - Improve section separation and add reduced-motion-aware interactions, including

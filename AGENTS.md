@@ -12,6 +12,16 @@ Pour chaque modification de code :
 4. Exécuter les vérifications adaptées aux changements ; pour le code de l'application,
    utiliser `npm run lint` et `npm run build`.
 
+## Format du changelog
+
+Dans `CHANGELOG.md`, ces règles s’appliquent aux entrées en attente de version et
+aux sections de versions :
+
+- Ne jamais insérer de ligne vide entre deux entrées d’une même liste, même si
+  une entrée occupe plusieurs lignes.
+- Conserver une ligne vide après chaque titre et entre la fin d’une liste et le
+  titre de version suivant.
+
 ## Validation et commit
 
 Quand l'utilisateur valide le travail en disant « je valide » ou « jke valide » :
