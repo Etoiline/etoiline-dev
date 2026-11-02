@@ -1,5 +1,7 @@
 # Changelog
 
+- Update React to 19.3.1, Motion to 14.9.0, TypeScript to 7.0.2, and development tooling.
+- Synchronize npm and pnpm lockfiles and document dependency maintenance for Node.js 24.
 - Normalize changelog spacing and document formatting rules for agents.
 - Add an all-rights-reserved notice and UNLICENSED project metadata.
 - Display reserved rights in the footer and document reuse conditions in French.

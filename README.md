@@ -30,6 +30,22 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
   dans `dist/index.html` pour rendre le contenu disponible sans JavaScript.
 - `npm run preview` : prévisualiser le site compilé.
 
+### Dépendances et mises à jour
+
+Les mises à jour sont vérifiées avec Node.js 24. Les déclarations `@types/node`
+restent sur la branche 24 pour correspondre à cet environnement. Maintenir React
+et React DOM à la même version, avec les déclarations React de la même branche majeure.
+
+Le projet utilise [TypeScript 7](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/)
+avec la commande `tsc -b`. Les scripts du dépôt n’appellent pas l’ancienne API
+JavaScript du compilateur ; Vite assure toujours la transformation et la compilation
+des ressources du site.
+
+Après une modification de `package.json`, synchroniser `package-lock.json` et
+`pnpm-lock.yaml` avec leurs gestionnaires respectifs, puis lancer `npm run lint`,
+`npm test` et `npm run build`. Contrôler aussi les dépendances avec `npm audit`.
+Les fichiers de verrouillage sont générés ; ne pas modifier leurs empreintes à la main.
+
 ### Résolution des dépendances sous Windows
 
 Avec pnpm, les dépendances de `node_modules` utilisent des jonctions vers le dossier
@@ -390,8 +406,8 @@ Si une vraie clé a été enregistrée dans Git, la révoquer chez son fournisse
 la remplacer ; supprimer sa ligne du dernier fichier ne la retire pas de l’historique.
 Ne pas publier les fichiers locaux ni les rapports d’audit contenant des données sensibles.
 
-Vite exige au minimum la version `8.3.3`, qui corrige les vulnérabilités du serveur
-de développement présentes en `8.3.0` à `8.3.2`. Les deux fichiers de verrouillage
+Vite exige au minimum la version `8.3.5`, qui inclut les corrections des vulnérabilités
+du serveur de développement présentes en `8.3.0` à `8.3.2`. Les deux fichiers de verrouillage
 npm et pnpm doivent conserver une version corrigée. Le site publié utilise les
 ressources compilées, sans exposer le serveur Vite de développement.
 
