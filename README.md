@@ -6,7 +6,9 @@ TypeScript et React Native, et une recherche de CDI 100 % télétravail.
 Le positionnement met en avant la conception d’architectures React/TypeScript strictes
 et scalables, avec l’automatisation des tâches répétitives au service de la qualité
 du code et des tests.
-Il présente les projets d’Etoiline :
+La section Expérience présente les trois années comme unique développeur Front d’une
+structure de trois personnes, du besoin client à la mise en production. Elle précède
+les projets personnels d’Etoiline :
 
 - [Mouv’Air](https://mouvair.etoiline.dev), une application pour choisir quand sortir
   selon la météo et la qualité de l’air.
@@ -81,10 +83,12 @@ permissions permettant l’accès à ces jonctions, ou depuis un terminal local 
   `public/images/crinserein.jpg` (1265 × 712 px).
 - Les aperçus sont cadrés en haut au ratio 2:1. Leur lien ouvre le site réel.
   Remplacer les captures lorsque les interfaces évoluent.
-- Les composants `Hero` et `Stack` se trouvent dans `src/components/`, et la fiche
+- Les composants `Hero`, `Experience` et `Stack` se trouvent dans `src/components/`, et la fiche
   `ProjectCard` dans `src/features/projects/`. Les textes de présentation générale
   restent dans `src/App.tsx`, les styles dans `src/index.css`.
-- La durée d’expérience et la recherche de poste sont dans `portfolio`. Actualiser
+- Le métier et la durée d’expérience sont partagés par `Hero` et `Experience` via
+  `portfolio`. Le pitch professionnel et le contexte de la structure sont dans
+  `src/components/Experience.tsx`. La recherche de poste reste dans `portfolio`. Actualiser
   aussi les métadonnées de `index.html` si ces informations changent.
 
 ### Structure éditoriale pour le recrutement
@@ -92,15 +96,20 @@ permissions permettant l’accès à ces jonctions, ou depuis un terminal local 
 1. **Accueil** : « Front-End React. Du produit, plus vite. », trois ans d’expérience,
    React / TypeScript / React Native, architectures strictes et scalables,
    automatisation des tâches répétitives et CDI 100 % télétravail.
-   La navigation de l’en-tête donne accès aux projets et au contact.
-2. **Projets** : un titre unique, puis une capture, une description courte, les
+   La navigation de l’en-tête donne accès à l’expérience, aux projets, à la stack,
+   à la présentation et au contact.
+2. **Expérience** : trois ans comme « Développeur Front-End (Unique développeur Front
+   de la structure) », dans une structure de trois personnes. Le pitch présente
+   la responsabilité technique des interfaces et le cycle complet des applications,
+   du besoin client à la production avec React/TypeScript et l’intégration.
+3. **Projets personnels** : un titre unique, puis une capture, une description courte, les
    technologies et les liens de chaque application. Le lien « Voir l’étude de cas »
    déplie le récit STAR, la méthode IA et la chronologie de Mouv’Air comme de Crin Serein.
-3. **Stack** : web, mobile et intégration / accessibilité, avec un usage concret
+4. **Stack** : web, mobile et intégration / accessibilité, avec un usage concret
    plutôt qu’une jauge subjective de maîtrise. Une note mentionne aussi FastAPI,
    PostgreSQL et Docker pour le backend des projets personnels.
-4. **À propos** : responsabilité technique, méthode de travail et équipe recherchée.
-5. **Contact** : titre direct, puis invitation à présenter une équipe, un produit
+5. **À propos** : responsabilité technique, méthode de travail et équipe recherchée.
+6. **Contact** : titre direct, puis invitation à présenter une équipe, un produit
    et un poste, sans mention de disponibilité au-dessus du titre.
 
 ### Sources et limites de l’étude de cas Mouv’Air

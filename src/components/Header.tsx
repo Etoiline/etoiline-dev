@@ -9,8 +9,9 @@ import { StarIcon } from './Icons'
 
 type HeaderProps = Readonly<{ name: string }>
 
-// Ces identifiants doivent suivre les sections de App, Hero et Stack ; leur ordre fixe celui de la navigation.
+// Ces identifiants suivent les sections de App, Hero, Experience et Stack dans leur ordre de lecture.
 const navigationItems = [
+  { href: '#experience', label: 'Expérience' },
   { href: '#projets', label: 'Projets' },
   { href: '#stack', label: 'Stack' },
   { href: '#a-propos', label: 'À propos' },

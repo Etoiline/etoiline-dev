@@ -88,7 +88,7 @@ h2 { font-size: 34px; font-weight: 650; letter-spacing: -1.2px; line-height: 1.2
 /* Les fonds délimitent les sections sur toute la largeur, avec une grille de contenu commune. */
 .portfolio-section { padding-block: 88px; border-top: 1px solid #d8d2e1; }
 .projects-section { background: var(--surface); }
-.stack-section, .contact-section { background: var(--lavender); }
+.experience-section, .stack-section, .contact-section { background: var(--lavender); }
 .about-section { background: var(--paper); }
 /* Les repères de section doivent rester plus visibles que les titres des projets. */
 .section-title { display: flex; align-items: center; gap: 18px; color: var(--purple); font-size: clamp(40px, 4.2vw, 52px); font-weight: 800; letter-spacing: -1.8px; line-height: 1.15; }
@@ -153,6 +153,12 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
 /* Les sections textuelles alignent leur titre à gauche et leur contenu à droite, puis passent sur une colonne à 800 px. */
 .text-section { display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: start; gap: 70px; }
 .text-section p { font-size: 16px; color: var(--muted); line-height: 1.85; max-width: 550px; }
+/* Le poste et son contexte restent hiérarchisés sous le titre de section, avec la même grille que les autres textes. */
+.experience-copy { min-width: 0; }
+.experience-copy .experience-context { margin-bottom: 12px; color: var(--purple); font-size: 12px; }
+.experience-copy h3 { font-size: 30px; letter-spacing: -0.8px; }
+.experience-role { display: block; margin-top: 10px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 450; letter-spacing: 0; line-height: 1.65; }
+.experience-description { margin-top: 22px; }
 .about-copy { display: grid; gap: 18px; }
 /* min-width: 0 permet au contenu du formulaire de rétrécir dans la grille sans provoquer de débordement horizontal. */
 .contact-content { min-width: 0; }
@@ -226,8 +232,9 @@ h3 { font-size: 38px; font-weight: 700; letter-spacing: -1.3px; line-height: 1.2
   .header-inner { flex-wrap: wrap; gap: 6px; padding-block: 16px 3px; }
   .brand { font-size: 25px; }
   .brand svg { width: 24px; height: 24px; }
-  .main-nav { width: 100%; justify-content: space-between; gap: 10px; font-size: 12px; }
-  .main-nav a { display: flex; align-items: center; min-height: 44px; }
+  /* Les cinq liens gardent leur libellé sur une ligne, y compris à 320 px de large. */
+  .main-nav { width: 100%; justify-content: space-between; gap: 8px; font-size: 12px; }
+  .main-nav a { display: flex; align-items: center; min-height: 44px; white-space: nowrap; }
   .hero { grid-template-columns: 1fr; gap: 30px; padding-block: 39px 45px; }
   h1 { font-size: clamp(38px, 9.2vw, 55px); letter-spacing: -0.05em; }
   .hero .eyebrow { font-size: 11px; }

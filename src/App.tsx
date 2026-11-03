@@ -1,4 +1,5 @@
 import type { JSX } from 'react'
+import Experience from './components/Experience'
 import ExternalLink from './components/ExternalLink'
 import Header from './components/Header'
 import Hero from './components/Hero'
@@ -32,10 +33,13 @@ function App(): JSX.Element {
         {/* Hero fournit le titre principal h1 ; les autres sections utilisent des titres h2. */}
         <Hero profile={portfolio} />
 
+        {/* Le parcours professionnel contextualise les années annoncées avant les projets personnels. */}
+        <Experience profile={portfolio} />
+
         {/* Chaque section nommée relie son titre visible à aria-labelledby pour les lecteurs d’écran. */}
         <section id="projets" className="portfolio-section projects-section" aria-labelledby="projects-title">
           <div className="page-width">
-            <h2 id="projects-title" className="section-title">Projets</h2>
+            <h2 id="projects-title" className="section-title">Projets personnels</h2>
             <div className="project-list">
               {/* L’identifiant du projet conserve la même identité React même si les fiches sont réordonnées. */}
               {projects.map((project) => <ProjectCard project={project} key={project.id} />)}

@@ -198,9 +198,9 @@ et ne soumet pas le formulaire. Les composants qu’elle rend doivent fonctionne
 
 ### `src/App.tsx`
 
-Assemble l’en-tête, l’accueil, les projets, les compétences, la présentation, le
-contact et le pied de page sous le même contexte Motion. Le lien d’évitement donne
-accès au contenu principal et les identifiants des sections sont les destinations
+Assemble l’en-tête, l’accueil, l’expérience professionnelle, les projets personnels,
+les compétences, la présentation, le contact et le pied de page sous le même contexte
+Motion. Le lien d’évitement donne accès au contenu principal et les identifiants des sections sont les destinations
 de la navigation. Le composant ne porte pas la logique d’envoi des e-mails.
 
 L’année du pied de page est évaluée au chargement du module, pendant le build puis
@@ -264,6 +264,9 @@ Motion complet dans cet arbre. La préférence de mouvements réduits est respec
 
 Affiche la marque et les ancres de navigation. Les libellés et destinations sont
 centralisés dans `navigationItems` et doivent correspondre aux sections réelles.
+L’ancre `#experience` précède les projets, comme la section professionnelle dans App.
+Sur mobile, l’espacement réduit conserve les cinq libellés sur une ligne chacun,
+y compris à 320 pixels de large.
 Le logo et le soulignement des liens réagissent au focus comme au survol ; les
 mouvements sont adaptés à la préférence du visiteur.
 
@@ -272,6 +275,16 @@ mouvements sont adaptés à la préférence du visiteur.
 Affiche le métier, l’expérience, l’accroche principale et la disponibilité. Il porte
 le titre h1 et l’ancre `accueil`. Son illustration SVG est décorative : elle reste
 hors de la lecture assistée et ne dépend pas d’une image externe.
+
+### `src/components/Experience.tsx`
+
+Présente les trois années comme unique développeur Front d’une structure de trois
+personnes, avant les projets personnels. Le métier et la durée sont reçus depuis
+le profil partagé ; le pitch reste dans le composant et décrit la responsabilité
+des interfaces, du besoin client à la mise en production avec React/TypeScript.
+Le composant porte la section `experience` et associe ses titres à la section et
+à l’article avec `aria-labelledby`. La grille commune aux sections textuelles
+empile le titre et le contenu sur les écrans de 800 pixels ou moins.
 
 ### `src/components/Stack.tsx`
 
