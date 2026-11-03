@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.3.1 - 2026-11-03
+
 - Show the Mouv’Air frontend repository as public in the portfolio.
 - Update the Vite React plugin to 6.2.1 and clarify compatible dependency checks.
 - Add professional experience before personal projects and update responsive navigation.
