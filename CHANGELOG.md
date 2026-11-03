@@ -1,5 +1,6 @@
 # Changelog
 
+- Update the Vite React plugin to 6.2.1 and clarify compatible dependency checks.
 - Add professional experience before personal projects and update responsive navigation.
 - Refine Mouv’Air mobile UX and Crin Serein secure B2C SaaS MVP positioning.
 - Emphasize React/TypeScript architecture expertise and automation as a productivity tool in the hero.

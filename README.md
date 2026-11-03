@@ -40,6 +40,11 @@ Les mises à jour sont vérifiées avec Node.js 24. Les déclarations `@types/no
 restent sur la branche 24 pour correspondre à cet environnement. Maintenir React
 et React DOM à la même version, avec les déclarations React de la même branche majeure.
 
+`pnpm outdated` affiche aussi les nouvelles versions majeures, dont celles de
+`@types/node` pour une autre branche de Node. Pour vérifier uniquement les mises
+à jour autorisées par le manifeste, utiliser
+[`pnpm outdated --compatible`](https://pnpm.io/cli/outdated#--compatible).
+
 Le projet utilise [TypeScript 7](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/)
 avec la commande `tsc -b`. Les scripts du dépôt n’appellent pas l’ancienne API
 JavaScript du compilateur ; Vite assure toujours la transformation et la compilation
@@ -49,6 +54,17 @@ Après une modification de `package.json`, synchroniser `package-lock.json` et
 `pnpm-lock.yaml` avec leurs gestionnaires respectifs, puis lancer `npm run lint`,
 `npm test` et `npm run build`. Contrôler aussi les dépendances avec `npm audit`.
 Les fichiers de verrouillage sont générés ; ne pas modifier leurs empreintes à la main.
+
+Si `node_modules` est géré par pnpm, lancer `pnpm update` en premier. La commande
+`npm install --package-lock-only --ignore-scripts` régénère ensuite le verrou npm
+sans remplacer les jonctions pnpm. Si les deux gestionnaires proposent des versions
+différentes, passer explicitement à npm la version retenue par pnpm pour le paquet
+concerné, en conservant sa catégorie de dépendance.
+
+[pnpm 11 et les versions suivantes](https://github.com/pnpm/pnpm/blob/main/pnpm/docs/settings/dependency-resolution.md#minimumreleaseage)
+appliquent par défaut un délai de 24 heures après la publication d’un paquet.
+Une version affichée comme `latest` par npm peut donc être temporairement plus récente
+que celle proposée par pnpm ; ce décalage ne signifie pas que le verrou est obsolète.
 
 ### Résolution des dépendances sous Windows
 
