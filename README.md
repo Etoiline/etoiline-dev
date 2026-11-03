@@ -152,8 +152,8 @@ L’historique Git établit les repères suivants, en heure de Paris :
 v0.4.0. Il ne mesure pas les heures travaillées, la conception antérieure, la date
 exacte de mise en production ni un gain de productivité imputable à l’IA. La méthode
 IA décrit la pratique déclarée par l’auteur ; aucun pourcentage d’accélération,
-trafic ou résultat commercial n’est inventé. Le dépôt frontend est privé au moment
-de la vérification ; modifier sa visibilité dans les données s’il devient public.
+trafic ou résultat commercial n’est inventé. Le [dépôt frontend Mouv’Air](https://github.com/Etoiline/mouvair-front)
+est public et accessible depuis la fiche du projet.
 
 ### Sources et limites de l’étude de cas Crin Serein
 

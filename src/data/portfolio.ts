@@ -3,6 +3,7 @@
  * App et ses composants consomment ces données aussi bien pendant le pré-rendu que dans le navigateur.
  * Modifier ce fichier change les contenus affichés ; les textes de l’accueil et d’App restent dans leurs composants.
  * Les métadonnées de index.html sont distinctes et doivent être actualisées si le positionnement change.
+ * La visibilité des dépôts est maintenue ici après vérification sur GitHub, sans synchronisation automatique.
  */
 import type { PortfolioProfile, Project, SkillGroup } from '../types/portfolio'
 
@@ -48,7 +49,7 @@ export const projects: readonly Project[] = [
     description:
       'Trouver le bon créneau pour courir, pédaler ou marcher en croisant météo et qualité de l’air sur les prochaines 24 heures.',
     url: 'https://mouvair.etoiline.dev',
-    repository: { url: 'https://github.com/Etoiline/mouvair-front', visibility: 'private' },
+    repository: { url: 'https://github.com/Etoiline/mouvair-front', visibility: 'public' },
     image: {
       src: '/images/mouvair.jpg',
       alt: 'Page d’accueil de Mouv’Air avec son champ de recherche de ville.',
