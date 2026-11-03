@@ -1,5 +1,6 @@
 # Changelog
 
+- Refine Mouv’Air mobile UX and Crin Serein secure B2C SaaS MVP positioning.
 - Emphasize React/TypeScript architecture expertise and automation as a productivity tool in the hero.
 - Update React to 19.3.1, Motion to 14.9.0, TypeScript to 7.0.2, and development tooling.
 - Synchronize npm and pnpm lockfiles and document dependency maintenance for Node.js 24.

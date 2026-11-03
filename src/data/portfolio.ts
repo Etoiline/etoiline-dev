@@ -57,10 +57,11 @@ export const projects: readonly Project[] = [
     },
     technologies: ['React', 'TypeScript strict', 'Vite', 'CSS', 'FastAPI / Python', 'Redis', 'Vitest', 'Testing Library'],
     caseStudy: {
-      situation: 'Pour préparer une sortie, il faut rapprocher les prévisions météo et la qualité de l’air, puis interpréter des données qui varient selon l’heure et l’activité.',
+      // Les standards mobiles décrivent l’ergonomie visée par l’interface web, indépendamment de sa stack.
+      situation: 'Croiser les prévisions météo et la qualité de l’air pour choisir quand sortir, avec un outil d’aide à la décision calibré sur les standards des applications mobiles.',
       task: 'Concevoir et développer le parcours complet : chercher une ville, choisir une activité et comparer 24 créneaux horaires avec une recommandation compréhensible.',
       actions: [
-        'Construire une interface React reliée à une API FastAPI qui agrège les données Open-Meteo.',
+        'Construire une interface React reliée à une API FastAPI qui agrège les données Open-Meteo, puis l’optimiser pour une expérience cross-platform (Web & Mobile) fluide.',
         'Aligner les contrats TypeScript sur les scores météo, air et globaux ; traiter les données absentes, les fuseaux horaires et les échecs d’actualisation.',
         'Rendre le graphique horaire et les détails interactifs, puis tester les parcours de recherche, de sélection et de réessai avec Vitest et Testing Library.',
       ],
@@ -103,15 +104,15 @@ export const projects: readonly Project[] = [
     },
     technologies: ['React', 'TypeScript strict', 'React Router', 'TanStack Query', 'FastAPI / Python', 'PostgreSQL', 'Vitest', 'Testing Library'],
     caseStudy: {
-      // Le besoin reste centré sur l’organisation du propriétaire ; les choix techniques sont détaillés dans les actions.
-      situation: 'Suivre les soins, anticiper les échéances et gérer les dépenses d’un cheval demande de l’organisation. Lorsque ces informations sont dispersées, il devient difficile de garder une vue d’ensemble et de ne rien oublier.',
+      // Le besoin reste centré sur le propriétaire ; les actions explicitent la protection des données par compte.
+      situation: 'Suivre les soins, anticiper les échéances et gérer les dépenses d’un cheval demande de l’organisation. Les propriétaires ont besoin de centraliser ces données critiques dans un espace sécurisé pour garder une vue d’ensemble.',
       task: 'Concevoir et développer un carnet web qui centralise ces informations pour chaque propriétaire, de la connexion à la gestion quotidienne des chevaux.',
       actions: [
         'Organiser les parcours React par fonctionnalités avec React Router et TanStack Query, puis les relier à une API FastAPI et à PostgreSQL.',
         'Gérer les sessions, isoler le cache par compte et annuler les lectures en cours à la déconnexion pour éviter de réafficher les données du compte précédent.',
         'Créer des formulaires en dialogues accessibles avec conservation des brouillons en cas d’erreur, puis tester les parcours de saisie, de filtrage et de navigation.',
       ],
-      result: 'Un carnet web avec fiches et photos des chevaux, historique des soins, calendrier des rappels et graphiques de dépenses. Son mode démonstration permet d’explorer les parcours avec des données fictives.',
+      result: 'Un carnet web conçu comme un MVP SaaS B2C sécurisé pour centraliser la gestion équine : fiches et photos des chevaux, historique des soins, calendrier des rappels et graphiques de dépenses. Son mode démonstration permet d’explorer les parcours avec des données fictives.',
       // Ces jalons proviennent des changelogs ; ils bornent deux versions, pas le temps travaillé.
       timeline: {
         start: '2026-10-07',

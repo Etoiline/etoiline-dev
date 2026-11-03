@@ -110,6 +110,11 @@ TypeScript strict, Vite et CSS côté interface ; FastAPI / Python et Redis côt
 Vitest et Testing Library pour les parcours frontend. Tailwind CSS figure parmi
 les compétences déclarées du profil, sans être attribué à Mouv’Air.
 
+Le besoin présente le croisement météo / qualité de l’air comme un outil d’aide à
+la décision calibré sur les standards des applications mobiles. La réalisation
+met en avant une expérience « cross-platform (Web & Mobile) » : cette formulation
+décrit l’ergonomie de l’application web sur ordinateur et mobile.
+
 L’historique Git établit les repères suivants, en heure de Paris :
 
 - Premiers commits frontend `a028117`, backend `3c24084` et documentation `904d35f` :
@@ -128,7 +133,10 @@ de la vérification ; modifier sa visibilité dans les données s’il devient p
 ### Sources et limites de l’étude de cas Crin Serein
 
 Le bloc « Le besoin » décrit l’organisation des soins, des échéances et des dépenses,
-ainsi que la difficulté à garder une vue d’ensemble lorsque ces informations sont dispersées.
+avec la centralisation des données critiques du propriétaire dans un espace sécurisé.
+Le résultat présente le carnet web comme un « MVP SaaS B2C sécurisé » pour la gestion
+équine. Ce positionnement s’appuie notamment sur les sessions et l’isolation des
+données par compte détaillées dans la réalisation.
 
 La fiche s’appuie sur le code, les manifestes et les README du frontend et de l’API :
 React, TypeScript strict, React Router et TanStack Query ; FastAPI / Python et
