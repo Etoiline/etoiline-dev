@@ -1,6 +1,7 @@
 /**
  * Présente le positionnement professionnel dès l’arrivée sur la page.
  * Le profil partagé fournit le métier, l’expérience et la disponibilité ; le texte d’accroche reste éditorial.
+ * L’accroche privilégie l’expertise technique de l’auteur ; les outils restent un appui à sa productivité.
  */
 import type { JSX } from 'react'
 import type { PortfolioProfile } from '../types/portfolio'
@@ -32,7 +33,7 @@ export default function Hero({ profile }: HeroProps): JSX.Element {
         <h1 id="hero-title">Front-End React.<br /><span>Du produit, plus vite.</span></h1>
         <p className="hero-description">
           Je développe des applications web et mobiles avec <strong>React, TypeScript et React Native</strong>.
-          {' '}L’IA accélère mon delivery ; je garde la main sur l’architecture, le typage et la qualité du code.
+          {' '}Je conçois des architectures React/TypeScript strictes et scalables, en exploitant les outils modernes d'automatisation pour accélérer les tâches répétitives et me concentrer sur la qualité du code et les tests.
         </p>
         {/* Le point coloré ne porte aucune information supplémentaire : la disponibilité est donnée en texte. */}
         <p className="availability"><span aria-hidden="true" />{profile.availability}</p>

@@ -3,7 +3,9 @@
 Portfolio personnel en français, développé avec React, TypeScript strict et Vite.
 Il présente un profil Front-End avec trois ans d’expérience, une pratique de React,
 TypeScript et React Native, et une recherche de CDI 100 % télétravail.
-L’usage de l’IA est associé au cadrage, à la relecture et aux vérifications du code livré.
+Le positionnement met en avant la conception d’architectures React/TypeScript strictes
+et scalables, avec l’automatisation des tâches répétitives au service de la qualité
+du code et des tests.
 Il présente les projets d’Etoiline :
 
 - [Mouv’Air](https://mouvair.etoiline.dev), une application pour choisir quand sortir
@@ -88,7 +90,8 @@ permissions permettant l’accès à ces jonctions, ou depuis un terminal local 
 ### Structure éditoriale pour le recrutement
 
 1. **Accueil** : « Front-End React. Du produit, plus vite. », trois ans d’expérience,
-   React / TypeScript / React Native, démarche IA et CDI 100 % télétravail.
+   React / TypeScript / React Native, architectures strictes et scalables,
+   automatisation des tâches répétitives et CDI 100 % télétravail.
    La navigation de l’en-tête donne accès aux projets et au contact.
 2. **Projets** : un titre unique, puis une capture, une description courte, les
    technologies et les liens de chaque application. Le lien « Voir l’étude de cas »
