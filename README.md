@@ -48,6 +48,13 @@ npm run test:e2e
 npm audit
 ```
 
+### Intégration continue
+
+Sur chaque pull request vers `main`, GitHub Actions lance `npm run lint`, `npm test`
+et `npm run test:e2e` avec Node.js 24 sur Ubuntu 24.04. Le workflow installe Chromium
+et ses bibliothèques système avant les tests Playwright.
+[Workflow de vérification](.github/workflows/verification.yml)
+
 ### Dépendances et mises à jour
 
 Les mises à jour sont vérifiées avec Node.js 24. Les déclarations `@types/node`
