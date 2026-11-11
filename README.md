@@ -35,6 +35,8 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
 - `npm run preview` : prévisualiser le site compilé.
 - Lancer `npm run test:e2e` pour exécuter `npm run build`, puis les tests Playwright
   dans Chromium sur la prévisualisation locale.
+- Lancer `npm run test:e2e:cross-browser` pour compiler le site et vérifier le
+  pré-rendu au clavier et l’envoi réussi du formulaire dans Firefox et WebKit.
 
 ### Vérifications locales
 
@@ -46,6 +48,14 @@ npm run lint
 npm test
 npm run test:e2e
 npm audit
+```
+
+Pour vérifier ces deux parcours dans Firefox et WebKit, installer les navigateurs
+Playwright puis lancer la commande dédiée.
+
+```sh
+npx playwright install firefox webkit
+npm run test:e2e:cross-browser
 ```
 
 ### Intégration continue
@@ -415,7 +425,8 @@ le montage utilise `createRoot`.
 
 La commande `npm run test:e2e` vérifie que les sections s’affichent avec JavaScript
 désactivé dans Chromium et que le lien d’évitement et une étude de cas peuvent
-s’activer au clavier.
+s’activer au clavier. `npm run test:e2e:cross-browser` rejoue le même scénario
+dans Firefox et WebKit.
 
 Le script réalise trois opérations :
 

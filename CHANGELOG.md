@@ -1,5 +1,6 @@
 # Changelog
 
+- Test keyboard navigation and contact in Firefox and WebKit, including the skip-link focus fix.
 - Test contact rate-limit feedback and check error and success message contrast with axe.
 - Test mobile navigation and the Contact anchor at 320 px.
 - Test duplicate contact submissions and the reduced-motion sending indicator.

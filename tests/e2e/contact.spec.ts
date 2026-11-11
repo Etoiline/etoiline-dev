@@ -69,7 +69,7 @@ async function holdContactResponse(page: Page) {
   return { requests, releaseResponse }
 }
 
-test('confirme l’envoi et vide les champs après la réponse de l’API', async ({ page }) => {
+test('confirme l’envoi et vide les champs après la réponse de l’API', { tag: '@cross-browser' }, async ({ page }) => {
   const { releaseResponse } = await holdContactResponse(page)
   const form = await fillContactForm(page)
   try {

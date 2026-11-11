@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 // Les assertions portent sur le HTML livré par le build, avant toute hydratation.
 test.use({ javaScriptEnabled: false })
 
-test('affiche le portfolio pré-rendu et permet de le parcourir au clavier', async ({ page }) => {
+test('affiche le portfolio pré-rendu et permet de le parcourir au clavier', { tag: '@cross-browser' }, async ({ page }) => {
   // Le test peut charger le site même quand le service de polices est indisponible.
   await page.route('https://fonts.googleapis.com/**', (route) => route.fulfill({ contentType: 'text/css', body: '' }))
   await page.goto('/')

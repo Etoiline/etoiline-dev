@@ -103,7 +103,8 @@ de composant à l’interface.
 | `npm test` | Vérifie les bornes du validateur et simule les échanges du formulaire avec le moteur de tests Node. |
 | `npm run build` | Vérifie les deux projets TypeScript, compile le client et pré-rend le HTML. |
 | `npm run preview` | Sert le résultat compilé pour le consulter ; ne reproduit pas la fonction Vercel. |
-| `npm run test:e2e` | Lance les tests Playwright sur un build frais. |
+| `npm run test:e2e` | Lance la suite Playwright complète dans Chromium sur un build frais. |
+| `npm run test:e2e:cross-browser` | Compile le site et rejoue le pré-rendu au clavier et l’envoi réussi dans Firefox et WebKit. |
 | `npm audit` | Recherche les vulnérabilités connues dans les dépendances du projet. |
 
 ### `package-lock.json`
@@ -155,8 +156,11 @@ Après l’installation des dépendances, `npx playwright install chromium` tél
 le navigateur utilisé par la suite.
 
 Playwright démarre la prévisualisation Vite sur `127.0.0.1:4173` et attend qu’elle
-soit disponible avant d’exécuter les scénarios de `tests/e2e/` dans Chromium.
-Les scénarios utilisent des chemins relatifs à cette adresse pour ouvrir les pages.
+soit disponible avant d’exécuter les scénarios de `tests/e2e/`. Les scénarios
+utilisent des chemins relatifs à cette adresse pour ouvrir les pages. Le projet
+Chromium exécute la suite complète avec `npm run test:e2e`. Avec
+`npm run test:e2e:cross-browser`, les projets Firefox et WebKit sélectionnent
+les scénarios marqués `@cross-browser`.
 
 ### `.github/workflows/verification.yml`
 
@@ -219,8 +223,10 @@ et ne soumet pas le formulaire. Les composants qu’elle rend doivent fonctionne
 
 Assemble l’en-tête, l’accueil, l’expérience professionnelle, les projets personnels,
 les compétences, la présentation, le contact et le pied de page sous le même contexte
-Motion. Le lien d’évitement donne accès au contenu principal et les identifiants des sections sont les destinations
-de la navigation. Le composant ne porte pas la logique d’envoi des e-mails.
+Motion. Le lien d’évitement donne accès au contenu principal. Son `tabIndex={0}`
+l’inclut dans la tabulation de WebKit même avec un réglage qui exclut les liens
+ordinaires. Les identifiants des sections sont les destinations de la navigation.
+Le composant ne porte pas la logique d’envoi des e-mails.
 
 L’année du pied de page est évaluée au chargement du module, pendant le build puis
 dans le navigateur. Les textes généraux restent ici ; les informations réutilisées
@@ -468,6 +474,7 @@ Un `429` renvoyé en texte brut vérifie que la zone `role="status"` invite à
 patienter, que la saisie reste intacte et que les champs et le bouton redeviennent
 utilisables. Axe vérifie le contraste dans cette zone après le `429` et après un
 envoi réussi. La règle doit produire un résultat positif pour chacun des messages.
+Le scénario d’envoi réussi est également exécuté dans Firefox et WebKit.
 
 ## Pré-rendu et ressources publiques
 
@@ -484,10 +491,11 @@ sur un HTML déjà rempli ne retrouve plus le repère vide attendu.
 
 ### `tests/e2e/prerender.spec.ts`
 
-Le scénario vérifie dans Chromium que le titre et les sections s’affichent avec
-JavaScript désactivé. Il utilise Tab et Entrée pour activer « Aller au contenu »
-et contrôler le focus du contenu principal, puis suit la tabulation jusqu’au résumé
-de Mouv’Air et vérifie que son étude de cas s’ouvre avec Entrée.
+Le scénario vérifie dans Chromium, Firefox et WebKit que le titre et les sections
+s’affichent avec JavaScript désactivé. Il utilise Tab et Entrée pour activer
+« Aller au contenu » et contrôler le focus du contenu principal, puis suit la
+tabulation jusqu’au résumé de Mouv’Air et vérifie que son étude de cas s’ouvre avec
+Entrée.
 
 ### `tests/e2e/accessibility.spec.ts`
 
