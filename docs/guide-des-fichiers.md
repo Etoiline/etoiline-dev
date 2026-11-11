@@ -448,6 +448,8 @@ Les parcours Playwright remplissent le formulaire dans Chromium et interceptent
 `/api/contact`. Le premier retient la réponse pour vérifier le bouton désactivé
 et les champs encore remplis, puis vérifie leur remise à zéro après confirmation.
 Le second simule un `503` et vérifie qu’un nouvel essai renvoie la même saisie.
+Le troisième soumet un nom de deux espaces et vérifie l’erreur de validation
+locale, la conservation des champs et un compteur d’appels à `/api/contact` égal à zéro.
 
 ## Pré-rendu et ressources publiques
 

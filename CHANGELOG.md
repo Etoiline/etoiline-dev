@@ -1,5 +1,6 @@
 # Changelog
 
+- Test local contact validation for a whitespace-only name in Chromium.
 - Run lint, Node tests, and Playwright checks on pull requests to main with GitHub Actions.
 - Document Chromium setup and local verification commands.
 - Check form labels and text contrast with axe and test contact validation boundaries.

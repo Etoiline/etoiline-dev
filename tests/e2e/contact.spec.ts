@@ -12,7 +12,7 @@ const expectedBody = { ...draft, website: '' }
 const successResponse = { json: { success: true } }
 const confirmation = 'Votre message a bien été envoyé.'
 
-async function fillContactForm(page: Page) {
+async function fillContactForm(page: Page, values: typeof draft = draft) {
   // Une feuille de style vide évite que le chargement du formulaire dépende des polices distantes.
   await page.route('https://fonts.googleapis.com/**', (route) => route.fulfill({ contentType: 'text/css', body: '' }))
   await page.goto('/#contact')
@@ -23,9 +23,9 @@ async function fillContactForm(page: Page) {
     email: contact.getByLabel('Adresse e-mail', { exact: true }),
     message: contact.getByLabel('Message', { exact: true }),
   }
-  await fields.name.fill(draft.name)
-  await fields.email.fill(draft.email)
-  await fields.message.fill(draft.message)
+  await fields.name.fill(values.name)
+  await fields.email.fill(values.email)
+  await fields.message.fill(values.message)
 
   return {
     fields,
@@ -93,4 +93,22 @@ test('conserve la saisie après un échec et permet de la renvoyer', async ({ pa
     expect(request.method()).toBe('POST')
     expect(request.postDataJSON()).toEqual(expectedBody)
   }
+})
+
+test('affiche l’erreur pour un nom de deux espaces et conserve la saisie', async ({ page }) => {
+  let apiCalls = 0
+  await page.route(contactEndpoint, (route) => {
+    apiCalls += 1
+    return route.fulfill(successResponse)
+  })
+
+  // Le nom satisfait la longueur minimale HTML et devient vide après normalisation.
+  const invalidDraft = { ...draft, name: '  ' }
+  const form = await fillContactForm(page, invalidDraft)
+  await form.submit.click()
+
+  await expect(form.feedback).toContainText('Vérifiez votre nom')
+  await expect(form.feedback).toBeVisible()
+  await expectContactValues(form.fields, invalidDraft)
+  expect(apiCalls).toBe(0)
 })
