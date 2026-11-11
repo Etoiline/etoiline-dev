@@ -1,5 +1,6 @@
 # Changelog
 
+- Test mobile navigation and the Contact anchor at 320 px.
 - Test duplicate contact submissions and the reduced-motion sending indicator.
 - Show the project preview fallback when its image fails before hydration.
 - Test that the logo stays still and the home link works by keyboard with reduced motion enabled.

@@ -492,6 +492,14 @@ s’appliquent au contenu et signale chaque violation avec les éléments concer
 Un scénario émule la réduction des animations avant le chargement et vérifie que
 le logo garde sa transformation au focus, puis que la touche Entrée ramène à l’accueil.
 
+### `tests/e2e/navigation.spec.ts`
+
+À 320 pixels de large, Playwright vérifie que les cinq liens de la navigation
+sont entièrement visibles et que la page tient dans la largeur de la fenêtre.
+Le clic sur « Contact » doit atteindre `#contact` et placer le titre sous
+l’en-tête. Le mode animations réduites rend le défilement immédiat pour mesurer
+la position finale du titre.
+
 ### `public/favicon.svg`
 
 Étoile de marque utilisée comme icône d’onglet, avec son fond ivoire. Le dessin
