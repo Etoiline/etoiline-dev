@@ -1,5 +1,6 @@
 # Changelog
 
+- Test the Vercel contact entry point, missing request bodies, and numeric honeypot values.
 - Test local contact validation for a whitespace-only name in Chromium.
 - Run lint, Node tests, and Playwright checks on pull requests to main with GitHub Actions.
 - Document Chromium setup and local verification commands.

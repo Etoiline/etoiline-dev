@@ -227,7 +227,7 @@ les dépendances du projet. Les responsabilités se répartissent ainsi :
 | `api/contact.ts` | Relier une requête reçue sur Vercel au gestionnaire du formulaire. | Lorsqu’une requête appelle `/api/contact`. |
 | `server/contact.ts` | Contrôler la requête, valider les champs, préparer l’e-mail et demander son envoi à Brevo. | Côté serveur, pendant le traitement de la requête. |
 | `.env.example` | Décrire les variables attendues et le format de l’adresse d’expédition. | Comme modèle pour la configuration locale ou Vercel. |
-| `tests/contact.test.mjs` | Vérifier les demandes et les réponses avec une configuration fictive et des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
+| `tests/contact.test.mjs` | Exercer le point d’entrée Vercel et vérifier les échanges du serveur et du client avec des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
 | `tests/contact-validation.test.mjs` | Vérifier les longueurs acceptées et rejetées par le validateur partagé. | Pendant `npm test`. |
 | `tests/e2e/contact.spec.ts` | Vérifier dans Chromium la validation locale, le succès et le nouvel essai du formulaire avec `/api/contact` simulé. | Pendant `npm run test:e2e`. |
 

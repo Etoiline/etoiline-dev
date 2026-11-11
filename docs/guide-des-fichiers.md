@@ -426,10 +426,11 @@ de fréquence reste dans le pare-feu Vercel.
 
 ### `tests/contact.test.mjs`
 
-Tests Node qui remplacent les appels réseau et utilisent une clé fictive. Ils
-vérifient le contrat envoyé à Brevo, les champs rejetés, les limites HTTP, les
-erreurs du prestataire, la déduplication et la confirmation attendue par le client.
-Les requêtes construites dans les tests sont transmises directement au gestionnaire.
+Tests Node qui remplacent les appels réseau et utilisent une clé fictive. Un
+scénario appelle l’export `fetch` de `api/contact.ts` avec une réponse Brevo simulée.
+Les autres vérifient les échanges avec Brevo, les champs rejetés dont un champ
+leurre numérique, les erreurs HTTP dont un POST sans corps, la déduplication et
+la confirmation attendue par le client.
 
 Ces simulations ne créent pas de compte, ne consomment pas de quota Brevo et ne
 prouvent pas qu’un e-mail réel sera livré. L’authentification du domaine, les droits
