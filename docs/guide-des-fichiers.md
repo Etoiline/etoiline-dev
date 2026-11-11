@@ -464,6 +464,11 @@ confirmation. Un `503` vérifie qu’un nouvel essai renvoie la même saisie. Un
 de deux espaces déclenche la validation locale avec conservation des champs et
 un compteur d’appels à `/api/contact` égal à zéro.
 
+Un `429` renvoyé en texte brut vérifie que la zone `role="status"` invite à
+patienter, que la saisie reste intacte et que les champs et le bouton redeviennent
+utilisables. Axe vérifie le contraste dans cette zone après le `429` et après un
+envoi réussi. La règle doit produire un résultat positif pour chacun des messages.
+
 ## Pré-rendu et ressources publiques
 
 ### `scripts/prerender.mjs`

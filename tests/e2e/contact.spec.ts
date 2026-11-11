@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 import type { Locator, Page, Request } from '@playwright/test'
 
@@ -41,6 +42,21 @@ async function expectContactValues(fields: Record<keyof typeof draft, Locator>, 
   await expect(fields.message).toHaveValue(values.message)
 }
 
+async function expectFeedbackContrast(feedback: Locator) {
+  await expect(feedback).toBeVisible()
+  await feedback.scrollIntoViewIfNeeded()
+
+  const rule = 'color-contrast'
+  const { passes, violations } = await new AxeBuilder({ page: feedback.page() })
+    .include('#contact [role="status"]')
+    .withRules([rule])
+    .analyze()
+
+  expect(violations).toEqual([])
+  // La règle doit s’appliquer au message même si aucune violation n’est relevée.
+  expect(passes.map(({ id }) => id)).toContain(rule)
+}
+
 async function holdContactResponse(page: Page) {
   // Retenir la réponse permet de vérifier l’attente avant la confirmation, même si le navigateur est rapide.
   const requests: Request[] = []
@@ -70,6 +86,7 @@ test('confirme l’envoi et vide les champs après la réponse de l’API', asyn
   await expect(form.feedback).toContainText(confirmation)
   await expectContactValues(form.fields, emptyDraft)
   await expect(form.submit).toBeEnabled()
+  await expectFeedbackContrast(form.feedback)
 })
 
 test('ignore une seconde soumission du formulaire pendant l’envoi', async ({ page }) => {
@@ -148,6 +165,25 @@ test('conserve la saisie après un échec et permet de la renvoyer', async ({ pa
     expect(request.method()).toBe('POST')
     expect(request.postDataJSON()).toEqual(expectedBody)
   }
+})
+
+test('annonce la limite d’envoi et conserve la saisie après un 429', async ({ page }) => {
+  // Un refus du pare-feu peut arriver sans corps JSON.
+  await page.route(contactEndpoint, (route) => route.fulfill({
+    status: 429,
+    contentType: 'text/plain',
+    body: 'Too Many Requests',
+  }))
+
+  const form = await fillContactForm(page)
+  await expect(form.feedback).toBeEmpty()
+  await form.submit.click()
+
+  await expect(form.feedback).toContainText('Patientez quelques minutes avant de réessayer.')
+  await expectContactValues(form.fields, draft)
+  await expect(form.submit).toBeEnabled()
+  for (const field of Object.values(form.fields)) await expect(field).toBeEditable()
+  await expectFeedbackContrast(form.feedback)
 })
 
 test('affiche l’erreur pour un nom de deux espaces et conserve la saisie', async ({ page }) => {
