@@ -1,5 +1,6 @@
 # Changelog
 
+- Test duplicate contact submissions and the reduced-motion sending indicator.
 - Show the project preview fallback when its image fails before hydration.
 - Test that the logo stays still and the home link works by keyboard with reduced motion enabled.
 - Test the Mouv’Air preview fallback and project link when its image returns 404.

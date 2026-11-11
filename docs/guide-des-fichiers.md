@@ -456,11 +456,13 @@ de mesurer la longueur.
 ### `tests/e2e/contact.spec.ts`
 
 Les parcours Playwright remplissent le formulaire dans Chromium et interceptent
-`/api/contact`. Le premier retient la réponse pour vérifier le bouton désactivé
-et les champs encore remplis, puis vérifie leur remise à zéro après confirmation.
-Le second simule un `503` et vérifie qu’un nouvel essai renvoie la même saisie.
-Le troisième soumet un nom de deux espaces et vérifie l’erreur de validation
-locale, la conservation des champs et un compteur d’appels à `/api/contact` égal à zéro.
+`/api/contact`. Une réponse en attente permet de vérifier le bouton désactivé et
+les champs encore remplis, puis leur remise à zéro après confirmation. Deux
+soumissions déclenchées dans la même tâche vérifient qu’une seule requête part.
+En mode animations réduites, l’indicateur d’envoi doit rester fixe jusqu’à la
+confirmation. Un `503` vérifie qu’un nouvel essai renvoie la même saisie. Un nom
+de deux espaces déclenche la validation locale avec conservation des champs et
+un compteur d’appels à `/api/contact` égal à zéro.
 
 ## Pré-rendu et ressources publiques
 

@@ -231,7 +231,7 @@ les dépendances du projet. Les responsabilités se répartissent ainsi :
 | `.env.example` | Décrire les variables attendues et le format de l’adresse d’expédition. | Comme modèle pour la configuration locale ou Vercel. |
 | `tests/contact.test.mjs` | Exercer le point d’entrée Vercel et vérifier les échanges du serveur et du client avec des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
 | `tests/contact-validation.test.mjs` | Vérifier les longueurs acceptées et rejetées par le validateur partagé. | Pendant `npm test`. |
-| `tests/e2e/contact.spec.ts` | Vérifier dans Chromium la validation locale, le succès et le nouvel essai du formulaire avec `/api/contact` simulé. | Pendant `npm run test:e2e`. |
+| `tests/e2e/contact.spec.ts` | Vérifier dans Chromium la validation locale, le verrou de soumission, l’indicateur en mode animations réduites, le succès et le nouvel essai avec `/api/contact` simulé. | Pendant `npm run test:e2e`. |
 
 La présence de ces fichiers ne crée aucun compte Brevo et n’ajoute aucune variable
 dans Vercel. Il faut configurer une clé API et un expéditeur autorisé sur le compte

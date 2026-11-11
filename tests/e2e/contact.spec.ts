@@ -41,14 +41,20 @@ async function expectContactValues(fields: Record<keyof typeof draft, Locator>, 
   await expect(fields.message).toHaveValue(values.message)
 }
 
-test('confirme l’envoi et vide les champs après la réponse de l’API', async ({ page }) => {
+async function holdContactResponse(page: Page) {
   // Retenir la réponse permet de vérifier l’attente avant la confirmation, même si le navigateur est rapide.
+  const requests: Request[] = []
   const { promise: responseReady, resolve: releaseResponse } = Promise.withResolvers<void>()
   await page.route(contactEndpoint, async (route) => {
+    requests.push(route.request())
     await responseReady
     await route.fulfill(successResponse)
   })
+  return { requests, releaseResponse }
+}
 
+test('confirme l’envoi et vide les champs après la réponse de l’API', async ({ page }) => {
+  const { releaseResponse } = await holdContactResponse(page)
   const form = await fillContactForm(page)
   try {
     const [request] = await Promise.all([page.waitForRequest(contactEndpoint), form.submit.click()])
@@ -64,6 +70,55 @@ test('confirme l’envoi et vide les champs après la réponse de l’API', asyn
   await expect(form.feedback).toContainText(confirmation)
   await expectContactValues(form.fields, emptyDraft)
   await expect(form.submit).toBeEnabled()
+})
+
+test('ignore une seconde soumission du formulaire pendant l’envoi', async ({ page }) => {
+  const { requests, releaseResponse } = await holdContactResponse(page)
+  const form = await fillContactForm(page)
+  try {
+    await Promise.all([
+      page.waitForRequest(contactEndpoint),
+      form.submit.evaluate((button: HTMLButtonElement) => {
+        const contactForm = button.form
+        if (!contactForm) throw new Error('Le bouton doit appartenir au formulaire de contact.')
+        // Soumettre deux fois dans la même tâche exerce le verrou avant la mise à jour du bouton.
+        contactForm.requestSubmit()
+        contactForm.requestSubmit()
+      }),
+    ])
+    await expect(form.sending).toBeDisabled()
+  } finally {
+    releaseResponse()
+  }
+
+  await expect(form.feedback).toContainText(confirmation)
+  expect(requests).toHaveLength(1)
+})
+
+test('garde l’indicateur d’envoi fixe avec les animations réduites', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.clock.install()
+  const { releaseResponse } = await holdContactResponse(page)
+  const form = await fillContactForm(page)
+  try {
+    await form.submit.click()
+    const spinner = form.sending.locator('.contact-submit-icon')
+    await expect(spinner).toBeVisible()
+    const initialTransform = await spinner.evaluate((icon) => getComputedStyle(icon).transform)
+
+    // Un demi-tour normal dure 400 ms. L’horloge fait avancer les animations pilotées par JavaScript.
+    await page.clock.runFor(400)
+    const indicator = await spinner.evaluate((icon) => ({
+      transform: getComputedStyle(icon).transform,
+      animating: icon.getAnimations().some((animation) => animation.playState === 'running'),
+    }))
+    expect(indicator).toEqual({ transform: initialTransform, animating: false })
+    await expect(form.feedback).toBeEmpty()
+  } finally {
+    releaseResponse()
+  }
+
+  await expect(form.feedback).toContainText(confirmation)
 })
 
 test('conserve la saisie après un échec et permet de la renvoyer', async ({ page }) => {
