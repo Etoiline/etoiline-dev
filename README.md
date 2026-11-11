@@ -114,6 +114,7 @@ permissions permettant l’accès à ces jonctions, ou depuis un terminal local 
   et accompagné d’un accès au contact ; le lien ne promet pas un accès public au code.
 - Pour ajouter un projet, ajouter une entrée à la liste et sa capture dans `public/images/`.
   Sans capture, ou si le fichier est indisponible, un aperçu affiche le nom du projet.
+  Un test Playwright vérifie le remplacement et l’ouverture du lien après un `404` de la capture de Mouv’Air.
 - La capture de Mouv’Air, réalisée le 5 octobre 2026, se trouve dans
   `public/images/mouvair.jpg` (1265 × 712 px).
 - La capture de Crin Serein, réalisée le 27 octobre 2026, se trouve dans

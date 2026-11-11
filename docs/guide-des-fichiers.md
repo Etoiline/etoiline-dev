@@ -359,6 +359,12 @@ pour éviter les collisions entre plusieurs fiches.
 Les dates ISO sont affichées en français avec le fuseau UTC pour garder le même
 résultat lors du pré-rendu et dans les différents fuseaux des visiteurs.
 
+### `tests/e2e/projects.spec.ts`
+
+Playwright simule un `404` sur la capture de Mouv’Air et fait défiler la page pour
+déclencher son chargement différé. Le scénario vérifie le visuel de secours, puis
+clique sur l’aperçu et contrôle l’adresse du nouvel onglet avec une destination simulée.
+
 ## Formulaire, validation et e-mail
 
 ### `src/features/contact/ContactForm.tsx`
