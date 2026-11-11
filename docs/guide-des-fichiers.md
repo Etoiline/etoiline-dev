@@ -344,6 +344,8 @@ Compose le résumé d’un projet : capture, nom, description, stack et liens. U
 capture absente ou impossible à charger est remplacée par un visuel portant le nom
 du projet. Les dimensions, le chargement différé et le cadrage CSS préservent une
 présentation utilisable pendant le chargement.
+Au rattachement de l’image pré-rendue, le composant vérifie aussi si le navigateur
+a déjà terminé son chargement en erreur.
 
 Un dépôt privé reste présenté comme privé avec un lien de contact ; cette indication
 ne contourne pas les permissions GitHub. La variante de présentation décide si
@@ -364,6 +366,8 @@ résultat lors du pré-rendu et dans les différents fuseaux des visiteurs.
 Playwright simule un `404` sur la capture de Mouv’Air et fait défiler la page pour
 déclencher son chargement différé. Le scénario vérifie le visuel de secours, puis
 clique sur l’aperçu et contrôle l’adresse du nouvel onglet avec une destination simulée.
+Un second scénario retient le script client jusqu’à l’échec de l’image pour vérifier
+son remplacement après l’hydratation.
 
 ## Formulaire, validation et e-mail
 
