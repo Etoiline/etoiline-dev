@@ -92,7 +92,7 @@ accordée pour les créations du portfolio. Les conditions détaillées sont dan
 `LICENSE` ; les licences propres aux dépendances restent applicables.
 
 Les dépendances applicatives sont React, React DOM et Motion. Les outils de développement
-comprennent TypeScript, Vite, son plugin React, Oxlint et les déclarations de types.
+comprennent TypeScript, Vite, son plugin React, Oxlint, Playwright et les déclarations de types.
 Les paquets marqués `@types/` fournissent des informations au compilateur, sans ajouter
 de composant à l’interface.
 
@@ -103,6 +103,7 @@ de composant à l’interface.
 | `npm test` | Exécute les simulations du formulaire avec le moteur de tests Node. |
 | `npm run build` | Vérifie les deux projets TypeScript, compile le client et pré-rend le HTML. |
 | `npm run preview` | Sert le résultat compilé pour le consulter ; ne reproduit pas la fonction Vercel. |
+| `npm run test:e2e` | Lance les tests Playwright sur un build frais. |
 
 ### `package-lock.json`
 
@@ -146,6 +147,12 @@ Il lit le champ `version` de `package.json` et le fournit à l’interface via l
 constante `__APP_VERSION__`. Seul ce numéro est injecté ; les autres champs du
 manifeste ne sont pas importés par les composants React. Le pré-rendu réutilise
 la même définition pour afficher la même version avant et après l’hydratation.
+
+### `playwright.config.ts`
+
+Playwright démarre la prévisualisation Vite sur `127.0.0.1:4173` et attend qu’elle
+soit disponible avant d’exécuter les scénarios de `tests/e2e/` dans Chromium.
+Les scénarios utilisent des chemins relatifs à cette adresse pour ouvrir les pages.
 
 ### `tsconfig.json`
 

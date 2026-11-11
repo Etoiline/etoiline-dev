@@ -1,5 +1,7 @@
 # Changelog
 
+- Add Playwright and a Chromium test command for the pre-rendered site.
+
 ## 0.3.1 - 2026-11-03
 
 - Show the Mouv’Air frontend repository as public in the portfolio.
