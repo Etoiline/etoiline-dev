@@ -483,6 +483,8 @@ de Mouv’Air et vérifie que son étude de cas s’ouvre avec Entrée.
 Ce test utilise `@axe-core/playwright` pour appliquer les règles `label` et
 `color-contrast` à la page compilée dans Chromium. Il vérifie que les deux règles
 s’appliquent au contenu et signale chaque violation avec les éléments concernés.
+Un scénario émule la réduction des animations avant le chargement et vérifie que
+le logo garde sa transformation au focus, puis que la touche Entrée ramène à l’accueil.
 
 ### `public/favicon.svg`
 

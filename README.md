@@ -355,7 +355,9 @@ Les liens externes annoncent leur ouverture dans un nouvel onglet et utilisent
 décorative est masquée aux lecteurs d’écran.
 
 La commande `npm run test:e2e` utilise axe sur la page compilée pour contrôler
-les libellés des champs et le contraste du texte.
+les libellés des champs et le contraste du texte. Avec la réduction des animations
+activée, un scénario vérifie aussi que le logo reste fixe au focus et que le lien
+ramène à l’accueil au clavier.
 
 Les polices DM Sans et Manrope sont chargées depuis Google Fonts avec `display=swap`.
 Des polices de remplacement permettent d’afficher le contenu si ce service est indisponible.
