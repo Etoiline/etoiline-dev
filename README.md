@@ -33,9 +33,20 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
 - `npm run build` : vérifier TypeScript, compiler les ressources et pré-rendre la page
   dans `dist/index.html` pour rendre le contenu disponible sans JavaScript.
 - `npm run preview` : prévisualiser le site compilé.
-- Lancer `npm run test:e2e` pour compiler le site et exécuter les tests Playwright
-  dans Chromium sur la prévisualisation locale. Installer Chromium au préalable
-  avec `npx playwright install chromium`.
+- Lancer `npm run test:e2e` pour exécuter `npm run build`, puis les tests Playwright
+  dans Chromium sur la prévisualisation locale.
+
+### Vérifications locales
+
+Après l’installation des dépendances, télécharger Chromium avec
+`npx playwright install chromium`, puis lancer les vérifications depuis la racine du dépôt.
+
+```sh
+npm run lint
+npm test
+npm run test:e2e
+npm audit
+```
 
 ### Dépendances et mises à jour
 

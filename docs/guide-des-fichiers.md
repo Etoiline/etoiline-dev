@@ -100,10 +100,11 @@ de composant à l’interface.
 | --- | --- |
 | `npm run dev` | Démarre l’interface Vite avec actualisation de développement ; ne lance pas l’API Vercel. |
 | `npm run lint` | Vérifie les règles Oxlint du projet. |
-| `npm test` | Exécute les simulations du formulaire avec le moteur de tests Node. |
+| `npm test` | Vérifie les bornes du validateur et simule les échanges du formulaire avec le moteur de tests Node. |
 | `npm run build` | Vérifie les deux projets TypeScript, compile le client et pré-rend le HTML. |
 | `npm run preview` | Sert le résultat compilé pour le consulter ; ne reproduit pas la fonction Vercel. |
 | `npm run test:e2e` | Lance les tests Playwright sur un build frais. |
+| `npm audit` | Recherche les vulnérabilités connues dans les dépendances du projet. |
 
 ### `package-lock.json`
 
@@ -149,6 +150,9 @@ manifeste ne sont pas importés par les composants React. Le pré-rendu réutili
 la même définition pour afficher la même version avant et après l’hydratation.
 
 ### `playwright.config.ts`
+
+Après l’installation des dépendances, `npx playwright install chromium` télécharge
+le navigateur utilisé par la suite.
 
 Playwright démarre la prévisualisation Vite sur `127.0.0.1:4173` et attend qu’elle
 soit disponible avant d’exécuter les scénarios de `tests/e2e/` dans Chromium.
