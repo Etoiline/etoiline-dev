@@ -423,6 +423,13 @@ Ces simulations ne créent pas de compte, ne consomment pas de quota Brevo et ne
 prouvent pas qu’un e-mail réel sera livré. L’authentification du domaine, les droits
 de la clé et la règle de pare-feu nécessitent leur configuration sur les services hébergés.
 
+### `tests/e2e/contact.spec.ts`
+
+Les parcours Playwright remplissent le formulaire dans Chromium et interceptent
+`/api/contact`. Le premier retient la réponse pour vérifier le bouton désactivé
+et les champs encore remplis, puis vérifie leur remise à zéro après confirmation.
+Le second simule un `503` et vérifie qu’un nouvel essai renvoie la même saisie.
+
 ## Pré-rendu et ressources publiques
 
 ### `scripts/prerender.mjs`

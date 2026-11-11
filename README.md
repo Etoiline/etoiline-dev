@@ -210,6 +210,7 @@ les dépendances du projet. Les responsabilités se répartissent ainsi :
 | `server/contact.ts` | Contrôler la requête, valider les champs, préparer l’e-mail et demander son envoi à Brevo. | Côté serveur, pendant le traitement de la requête. |
 | `.env.example` | Décrire les variables attendues et le format de l’adresse d’expédition. | Comme modèle pour la configuration locale ou Vercel. |
 | `tests/contact.test.mjs` | Vérifier les demandes et les réponses avec une configuration fictive et des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
+| `tests/e2e/contact.spec.ts` | Vérifier dans Chromium le succès et le nouvel essai du formulaire avec `/api/contact` simulé. | Pendant `npm run test:e2e`. |
 
 La présence de ces fichiers ne crée aucun compte Brevo et n’ajoute aucune variable
 dans Vercel. Il faut configurer une clé API et un expéditeur autorisé sur le compte

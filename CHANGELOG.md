@@ -1,5 +1,6 @@
 # Changelog
 
+- Add browser tests for successful contact submissions and retry after a failure.
 - Add Playwright and a Chromium test command for the pre-rendered site.
 
 ## 0.3.1 - 2026-11-03
