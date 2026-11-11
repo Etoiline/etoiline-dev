@@ -387,6 +387,10 @@ s’exécute pas à chaque visite. Aucun serveur de rendu n’est nécessaire en
 Le navigateur hydrate ce même arbre avec `hydrateRoot` ; en développement,
 le montage utilise `createRoot`.
 
+La commande `npm run test:e2e` vérifie que les sections s’affichent avec JavaScript
+désactivé dans Chromium et que le lien d’évitement et une étude de cas peuvent
+s’activer au clavier.
+
 Le script réalise trois opérations :
 
 1. Lire le HTML compilé par Vite et vérifier que la racine React vide est présente.

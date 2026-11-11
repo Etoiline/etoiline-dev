@@ -443,6 +443,13 @@ Une fonction de remplacement préserve aussi les éventuels caractères spéciau
 HTML produit. Le script se lance après un nouveau build Vite : le relancer seul
 sur un HTML déjà rempli ne retrouve plus le repère vide attendu.
 
+### `tests/e2e/prerender.spec.ts`
+
+Le scénario vérifie dans Chromium que le titre et les sections s’affichent avec
+JavaScript désactivé. Il utilise Tab et Entrée pour activer « Aller au contenu »
+et contrôler le focus du contenu principal, puis suit la tabulation jusqu’au résumé
+de Mouv’Air et vérifie que son étude de cas s’ouvre avec Entrée.
+
 ### `public/favicon.svg`
 
 Étoile de marque utilisée comme icône d’onglet, avec son fond ivoire. Le dessin
