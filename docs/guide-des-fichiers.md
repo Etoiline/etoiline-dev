@@ -164,9 +164,9 @@ les scénarios marqués `@cross-browser`.
 
 ### `.github/workflows/verification.yml`
 
-Le workflow s’exécute sur les pull requests qui ciblent `main`. Le job Ubuntu
-installe Node.js 24 et les dépendances verrouillées par `package-lock.json` avec
-`npm ci`. Après Oxlint et les tests Node, Playwright installe Chromium et les
+Le workflow s’exécute sur les pull requests qui ciblent `dev` ou `main`. Le job
+Ubuntu installe Node.js 24 et les dépendances verrouillées par `package-lock.json`
+avec `npm ci`. Après Oxlint et les tests Node, Playwright installe Chromium et les
 bibliothèques système avec `--with-deps`. `npm run test:e2e` compile et pré-rend
 le site avant d’exécuter les scénarios dans le navigateur.
 

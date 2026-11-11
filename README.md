@@ -60,9 +60,9 @@ npm run test:e2e:cross-browser
 
 ### Intégration continue
 
-Sur chaque pull request vers `main`, GitHub Actions lance `npm run lint`, `npm test`
-et `npm run test:e2e` avec Node.js 24 sur Ubuntu 24.04. Le workflow installe Chromium
-et ses bibliothèques système avant les tests Playwright.
+Sur chaque pull request vers `dev` ou `main`, GitHub Actions lance `npm run lint`,
+`npm test` et `npm run test:e2e` avec Node.js 24 sur Ubuntu 24.04. Le workflow
+installe Chromium et ses bibliothèques système avant les tests Playwright.
 [Workflow de vérification](.github/workflows/verification.yml)
 
 ### Dépendances et mises à jour
