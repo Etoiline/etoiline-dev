@@ -1,5 +1,6 @@
 # Changelog
 
+- Check form labels and text contrast with axe and test contact validation boundaries.
 - Test pre-rendered content and keyboard navigation with JavaScript disabled.
 - Add browser tests for successful contact submissions and retry after a failure.
 - Add Playwright and a Chromium test command for the pre-rendered site.

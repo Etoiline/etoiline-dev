@@ -423,6 +423,13 @@ Ces simulations ne créent pas de compte, ne consomment pas de quota Brevo et ne
 prouvent pas qu’un e-mail réel sera livré. L’authentification du domaine, les droits
 de la clé et la règle de pare-feu nécessitent leur configuration sur les services hébergés.
 
+### `tests/contact-validation.test.mjs`
+
+Teste `parseContactMessage` aux limites du nom (2 à 100 caractères), de l’adresse
+e-mail (254 au maximum) et du message (10 à 5 000), ainsi que les longueurs juste
+en dehors. Un scénario vérifie que les espaces périphériques sont retirés avant
+de mesurer la longueur.
+
 ### `tests/e2e/contact.spec.ts`
 
 Les parcours Playwright remplissent le formulaire dans Chromium et interceptent
@@ -449,6 +456,12 @@ Le scénario vérifie dans Chromium que le titre et les sections s’affichent a
 JavaScript désactivé. Il utilise Tab et Entrée pour activer « Aller au contenu »
 et contrôler le focus du contenu principal, puis suit la tabulation jusqu’au résumé
 de Mouv’Air et vérifie que son étude de cas s’ouvre avec Entrée.
+
+### `tests/e2e/accessibility.spec.ts`
+
+Ce test utilise `@axe-core/playwright` pour appliquer les règles `label` et
+`color-contrast` à la page compilée dans Chromium. Il vérifie que les deux règles
+s’appliquent au contenu et signale chaque violation avec les éléments concernés.
 
 ### `public/favicon.svg`
 
