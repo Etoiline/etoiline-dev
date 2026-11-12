@@ -24,8 +24,8 @@ function App(): JSX.Element {
   // Le contexte d’animation commun couvre aussi l’en-tête et respecte la préférence de mouvements réduits.
   return (
     <MotionProvider>
-      {/* Ce premier lien au clavier permet de passer directement au contenu sans parcourir la navigation. */}
-      <a className="skip-link" href="#contenu">Aller au contenu</a>
+      {/* tabIndex=0 garde le lien d’évitement dans la tabulation de WebKit quand les liens ordinaires sont ignorés. */}
+      <a className="skip-link" href="#contenu" tabIndex={0}>Aller au contenu</a>
       <Header name={portfolio.name} />
 
       {/* tabIndex=-1 permet de donner le focus à la cible du lien d’évitement sans ajouter un arrêt de tabulation. */}

@@ -28,6 +28,29 @@ function request(payload = message, options = {}) {
   })
 }
 
+test('le point d’entrée Vercel confirme un POST accepté par Brevo', async (t) => {
+  const previousKey = process.env.BREVO_API_KEY
+  t.after(() => {
+    if (previousKey === undefined) {
+      delete process.env.BREVO_API_KEY
+    } else {
+      process.env.BREVO_API_KEY = previousKey
+    }
+  })
+  process.env.BREVO_API_KEY = env.BREVO_API_KEY
+
+  // L’adaptateur capture fetch au chargement du module, d’où la simulation avant l’import.
+  const send = t.mock.method(globalThis, 'fetch', async () =>
+    Response.json({ messageId: '<email-test@brevo.example>' }, { status: 201 }))
+  const { default: contactApi } = await import('../api/contact.ts')
+
+  const response = await contactApi.fetch(request())
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), { success: true })
+  assert.equal(send.mock.callCount(), 1)
+  assert.equal(send.mock.calls[0].arguments[0], 'https://api.brevo.com/v3/smtp/email')
+})
+
 test('le serveur envoie un e-mail texte par Brevo au destinataire fixé et permet de répondre au visiteur', async () => {
   let sent
   // Le faux prestataire capture la demande et simule la réponse 201 avec messageId de l’API Brevo.
@@ -75,7 +98,7 @@ test('la configuration serveur peut changer l’expéditeur sans changer le dest
 
 test('les champs invalides et le champ leurre sont rejetés avant tout envoi', async (t) => {
   // Ces cas contournent les contraintes HTML : l’API doit aussi refuser les mauvaises structures,
-  // les limites dépassées, une tentative d’injection d’en-tête dans l’e-mail et un champ leurre rempli.
+  // les limites dépassées, une tentative d’injection d’en-tête et un champ leurre mal typé ou rempli.
   const invalid = [
     null,
     [],
@@ -86,6 +109,7 @@ test('les champs invalides et le champ leurre sont rejetés avant tout envoi', a
     { ...message, message: 'court' },
     { ...message, message: 'a'.repeat(5001) },
     { ...message, message: 123 },
+    { ...message, website: 123 },
     { ...message, website: 'https://spam.example.com' },
   ]
 
@@ -110,7 +134,8 @@ test('les méthodes, origines et formats non autorisés sont refusés', async ()
     assert.equal(response.status, 403)
   }
   assert.equal((await handle(request(message, { headers: { origin, 'Content-Type': 'text/plain' } }))).status, 415)
-  // Un format annoncé comme JSON peut malgré tout contenir des données impossibles à décoder.
+  // Le type de contenu JSON doit être accompagné d’un corps décodable.
+  assert.equal((await handle(request(message, { body: null }))).status, 400)
   assert.equal((await handle(request('{'))).status, 400)
 })
 
