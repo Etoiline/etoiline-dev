@@ -33,6 +33,37 @@ Ouvrir l’adresse affichée dans le terminal, par défaut http://localhost:5173
 - `npm run build` : vérifier TypeScript, compiler les ressources et pré-rendre la page
   dans `dist/index.html` pour rendre le contenu disponible sans JavaScript.
 - `npm run preview` : prévisualiser le site compilé.
+- Lancer `npm run test:e2e` pour exécuter `npm run build`, puis les tests Playwright
+  dans Chromium sur la prévisualisation locale.
+- Lancer `npm run test:e2e:cross-browser` pour compiler le site et vérifier le
+  pré-rendu au clavier et l’envoi réussi du formulaire dans Firefox et WebKit.
+
+### Vérifications locales
+
+Après l’installation des dépendances, télécharger Chromium avec
+`npx playwright install chromium`, puis lancer les vérifications depuis la racine du dépôt.
+
+```sh
+npm run lint
+npm test
+npm run test:e2e
+npm audit
+```
+
+Pour vérifier ces deux parcours dans Firefox et WebKit, installer les navigateurs
+Playwright puis lancer la commande dédiée.
+
+```sh
+npx playwright install firefox webkit
+npm run test:e2e:cross-browser
+```
+
+### Intégration continue
+
+Sur chaque pull request vers `dev` ou `main`, GitHub Actions lance `npm run lint`,
+`npm test` et `npm run test:e2e` avec Node.js 24 sur Ubuntu 24.04. Le workflow
+installe Chromium et ses bibliothèques système avant les tests Playwright.
+[Workflow de vérification](.github/workflows/verification.yml)
 
 ### Dépendances et mises à jour
 
@@ -93,6 +124,8 @@ permissions permettant l’accès à ces jonctions, ou depuis un terminal local 
   et accompagné d’un accès au contact ; le lien ne promet pas un accès public au code.
 - Pour ajouter un projet, ajouter une entrée à la liste et sa capture dans `public/images/`.
   Sans capture, ou si le fichier est indisponible, un aperçu affiche le nom du projet.
+  Les tests Playwright vérifient le remplacement après un `404`, y compris avant
+  l’hydratation, ainsi que l’ouverture du lien de Mouv’Air.
 - La capture de Mouv’Air, réalisée le 5 octobre 2026, se trouve dans
   `public/images/mouvair.jpg` (1265 × 712 px).
 - La capture de Crin Serein, réalisée le 27 octobre 2026, se trouve dans
@@ -206,7 +239,9 @@ les dépendances du projet. Les responsabilités se répartissent ainsi :
 | `api/contact.ts` | Relier une requête reçue sur Vercel au gestionnaire du formulaire. | Lorsqu’une requête appelle `/api/contact`. |
 | `server/contact.ts` | Contrôler la requête, valider les champs, préparer l’e-mail et demander son envoi à Brevo. | Côté serveur, pendant le traitement de la requête. |
 | `.env.example` | Décrire les variables attendues et le format de l’adresse d’expédition. | Comme modèle pour la configuration locale ou Vercel. |
-| `tests/contact.test.mjs` | Vérifier les demandes et les réponses avec une configuration fictive et des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
+| `tests/contact.test.mjs` | Exercer le point d’entrée Vercel et vérifier les échanges du serveur et du client avec des appels réseau simulés. | Pendant `npm test`, sans envoyer de vrai e-mail. |
+| `tests/contact-validation.test.mjs` | Vérifier les longueurs acceptées et rejetées par le validateur partagé. | Pendant `npm test`. |
+| `tests/e2e/contact.spec.ts` | Vérifier dans Chromium la validation locale, le verrou de soumission, l’indicateur en mode animations réduites, le succès et le nouvel essai avec `/api/contact` simulé. Axe contrôle le contraste des messages d’erreur et de succès. | Pendant `npm run test:e2e`. |
 
 La présence de ces fichiers ne crée aucun compte Brevo et n’ajoute aucune variable
 dans Vercel. Il faut configurer une clé API et un expéditeur autorisé sur le compte
@@ -330,6 +365,11 @@ Les liens externes annoncent leur ouverture dans un nouvel onglet et utilisent
 `noopener noreferrer`. Les captures disposent d’un texte alternatif ; l’illustration
 décorative est masquée aux lecteurs d’écran.
 
+La commande `npm run test:e2e` utilise axe sur la page compilée pour contrôler
+les libellés des champs et le contraste du texte. Avec la réduction des animations
+activée, un scénario vérifie aussi que le logo reste fixe au focus et que le lien
+ramène à l’accueil au clavier.
+
 Les polices DM Sans et Manrope sont chargées depuis Google Fonts avec `display=swap`.
 Des polices de remplacement permettent d’afficher le contenu si ce service est indisponible.
 Les captures sont locales et chargées à la demande. Aucun site externe n’est embarqué
@@ -382,6 +422,11 @@ le contenu React dans `dist/index.html`. Il prépare une page déjà remplie et 
 s’exécute pas à chaque visite. Aucun serveur de rendu n’est nécessaire en production.
 Le navigateur hydrate ce même arbre avec `hydrateRoot` ; en développement,
 le montage utilise `createRoot`.
+
+La commande `npm run test:e2e` vérifie que les sections s’affichent avec JavaScript
+désactivé dans Chromium et que le lien d’évitement et une étude de cas peuvent
+s’activer au clavier. `npm run test:e2e:cross-browser` rejoue le même scénario
+dans Firefox et WebKit.
 
 Le script réalise trois opérations :
 

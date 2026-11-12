@@ -1,5 +1,22 @@
 # Changelog
 
+- Run CI checks on pull requests targeting dev.
+- Test keyboard navigation and contact in Firefox and WebKit, including the skip-link focus fix.
+- Test contact rate-limit feedback and check error and success message contrast with axe.
+- Test mobile navigation and the Contact anchor at 320 px.
+- Test duplicate contact submissions and the reduced-motion sending indicator.
+- Show the project preview fallback when its image fails before hydration.
+- Test that the logo stays still and the home link works by keyboard with reduced motion enabled.
+- Test the Mouv’Air preview fallback and project link when its image returns 404.
+- Test the Vercel contact entry point, missing request bodies, and numeric honeypot values.
+- Test local contact validation for a whitespace-only name in Chromium.
+- Run lint, Node tests, and Playwright checks on pull requests to main with GitHub Actions.
+- Document Chromium setup and local verification commands.
+- Check form labels and text contrast with axe and test contact validation boundaries.
+- Test pre-rendered content and keyboard navigation with JavaScript disabled.
+- Add browser tests for successful contact submissions and retry after a failure.
+- Add Playwright and a Chromium test command for the pre-rendered site.
+
 ## 0.3.1 - 2026-11-03
 
 - Show the Mouv’Air frontend repository as public in the portfolio.

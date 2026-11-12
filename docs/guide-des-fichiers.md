@@ -92,7 +92,7 @@ accordée pour les créations du portfolio. Les conditions détaillées sont dan
 `LICENSE` ; les licences propres aux dépendances restent applicables.
 
 Les dépendances applicatives sont React, React DOM et Motion. Les outils de développement
-comprennent TypeScript, Vite, son plugin React, Oxlint et les déclarations de types.
+comprennent TypeScript, Vite, son plugin React, Oxlint, Playwright et les déclarations de types.
 Les paquets marqués `@types/` fournissent des informations au compilateur, sans ajouter
 de composant à l’interface.
 
@@ -100,9 +100,12 @@ de composant à l’interface.
 | --- | --- |
 | `npm run dev` | Démarre l’interface Vite avec actualisation de développement ; ne lance pas l’API Vercel. |
 | `npm run lint` | Vérifie les règles Oxlint du projet. |
-| `npm test` | Exécute les simulations du formulaire avec le moteur de tests Node. |
+| `npm test` | Vérifie les bornes du validateur et simule les échanges du formulaire avec le moteur de tests Node. |
 | `npm run build` | Vérifie les deux projets TypeScript, compile le client et pré-rend le HTML. |
 | `npm run preview` | Sert le résultat compilé pour le consulter ; ne reproduit pas la fonction Vercel. |
+| `npm run test:e2e` | Lance la suite Playwright complète dans Chromium sur un build frais. |
+| `npm run test:e2e:cross-browser` | Compile le site et rejoue le pré-rendu au clavier et l’envoi réussi dans Firefox et WebKit. |
+| `npm audit` | Recherche les vulnérabilités connues dans les dépendances du projet. |
 
 ### `package-lock.json`
 
@@ -146,6 +149,26 @@ Il lit le champ `version` de `package.json` et le fournit à l’interface via l
 constante `__APP_VERSION__`. Seul ce numéro est injecté ; les autres champs du
 manifeste ne sont pas importés par les composants React. Le pré-rendu réutilise
 la même définition pour afficher la même version avant et après l’hydratation.
+
+### `playwright.config.ts`
+
+Après l’installation des dépendances, `npx playwright install chromium` télécharge
+le navigateur utilisé par la suite.
+
+Playwright démarre la prévisualisation Vite sur `127.0.0.1:4173` et attend qu’elle
+soit disponible avant d’exécuter les scénarios de `tests/e2e/`. Les scénarios
+utilisent des chemins relatifs à cette adresse pour ouvrir les pages. Le projet
+Chromium exécute la suite complète avec `npm run test:e2e`. Avec
+`npm run test:e2e:cross-browser`, les projets Firefox et WebKit sélectionnent
+les scénarios marqués `@cross-browser`.
+
+### `.github/workflows/verification.yml`
+
+Le workflow s’exécute sur les pull requests qui ciblent `dev` ou `main`. Le job
+Ubuntu installe Node.js 24 et les dépendances verrouillées par `package-lock.json`
+avec `npm ci`. Après Oxlint et les tests Node, Playwright installe Chromium et les
+bibliothèques système avec `--with-deps`. `npm run test:e2e` compile et pré-rend
+le site avant d’exécuter les scénarios dans le navigateur.
 
 ### `tsconfig.json`
 
@@ -200,8 +223,10 @@ et ne soumet pas le formulaire. Les composants qu’elle rend doivent fonctionne
 
 Assemble l’en-tête, l’accueil, l’expérience professionnelle, les projets personnels,
 les compétences, la présentation, le contact et le pied de page sous le même contexte
-Motion. Le lien d’évitement donne accès au contenu principal et les identifiants des sections sont les destinations
-de la navigation. Le composant ne porte pas la logique d’envoi des e-mails.
+Motion. Le lien d’évitement donne accès au contenu principal. Son `tabIndex={0}`
+l’inclut dans la tabulation de WebKit même avec un réglage qui exclut les liens
+ordinaires. Les identifiants des sections sont les destinations de la navigation.
+Le composant ne porte pas la logique d’envoi des e-mails.
 
 L’année du pied de page est évaluée au chargement du module, pendant le build puis
 dans le navigateur. Les textes généraux restent ici ; les informations réutilisées
@@ -325,6 +350,8 @@ Compose le résumé d’un projet : capture, nom, description, stack et liens. U
 capture absente ou impossible à charger est remplacée par un visuel portant le nom
 du projet. Les dimensions, le chargement différé et le cadrage CSS préservent une
 présentation utilisable pendant le chargement.
+Au rattachement de l’image pré-rendue, le composant vérifie aussi si le navigateur
+a déjà terminé son chargement en erreur.
 
 Un dépôt privé reste présenté comme privé avec un lien de contact ; cette indication
 ne contourne pas les permissions GitHub. La variante de présentation décide si
@@ -339,6 +366,14 @@ pour éviter les collisions entre plusieurs fiches.
 
 Les dates ISO sont affichées en français avec le fuseau UTC pour garder le même
 résultat lors du pré-rendu et dans les différents fuseaux des visiteurs.
+
+### `tests/e2e/projects.spec.ts`
+
+Playwright simule un `404` sur la capture de Mouv’Air et fait défiler la page pour
+déclencher son chargement différé. Le scénario vérifie le visuel de secours, puis
+clique sur l’aperçu et contrôle l’adresse du nouvel onglet avec une destination simulée.
+Un second scénario retient le script client jusqu’à l’échec de l’image pour vérifier
+son remplacement après l’hydratation.
 
 ## Formulaire, validation et e-mail
 
@@ -407,14 +442,39 @@ de fréquence reste dans le pare-feu Vercel.
 
 ### `tests/contact.test.mjs`
 
-Tests Node qui remplacent les appels réseau et utilisent une clé fictive. Ils
-vérifient le contrat envoyé à Brevo, les champs rejetés, les limites HTTP, les
-erreurs du prestataire, la déduplication et la confirmation attendue par le client.
-Les requêtes construites dans les tests sont transmises directement au gestionnaire.
+Tests Node qui remplacent les appels réseau et utilisent une clé fictive. Un
+scénario appelle l’export `fetch` de `api/contact.ts` avec une réponse Brevo simulée.
+Les autres vérifient les échanges avec Brevo, les champs rejetés dont un champ
+leurre numérique, les erreurs HTTP dont un POST sans corps, la déduplication et
+la confirmation attendue par le client.
 
 Ces simulations ne créent pas de compte, ne consomment pas de quota Brevo et ne
 prouvent pas qu’un e-mail réel sera livré. L’authentification du domaine, les droits
 de la clé et la règle de pare-feu nécessitent leur configuration sur les services hébergés.
+
+### `tests/contact-validation.test.mjs`
+
+Teste `parseContactMessage` aux limites du nom (2 à 100 caractères), de l’adresse
+e-mail (254 au maximum) et du message (10 à 5 000), ainsi que les longueurs juste
+en dehors. Un scénario vérifie que les espaces périphériques sont retirés avant
+de mesurer la longueur.
+
+### `tests/e2e/contact.spec.ts`
+
+Les parcours Playwright remplissent le formulaire dans Chromium et interceptent
+`/api/contact`. Une réponse en attente permet de vérifier le bouton désactivé et
+les champs encore remplis, puis leur remise à zéro après confirmation. Deux
+soumissions déclenchées dans la même tâche vérifient qu’une seule requête part.
+En mode animations réduites, l’indicateur d’envoi doit rester fixe jusqu’à la
+confirmation. Un `503` vérifie qu’un nouvel essai renvoie la même saisie. Un nom
+de deux espaces déclenche la validation locale avec conservation des champs et
+un compteur d’appels à `/api/contact` égal à zéro.
+
+Un `429` renvoyé en texte brut vérifie que la zone `role="status"` invite à
+patienter, que la saisie reste intacte et que les champs et le bouton redeviennent
+utilisables. Axe vérifie le contraste dans cette zone après le `429` et après un
+envoi réussi. La règle doit produire un résultat positif pour chacun des messages.
+Le scénario d’envoi réussi est également exécuté dans Firefox et WebKit.
 
 ## Pré-rendu et ressources publiques
 
@@ -428,6 +488,30 @@ Le remplacement conserve les métadonnées et les liens vers les ressources comp
 Une fonction de remplacement préserve aussi les éventuels caractères spéciaux du
 HTML produit. Le script se lance après un nouveau build Vite : le relancer seul
 sur un HTML déjà rempli ne retrouve plus le repère vide attendu.
+
+### `tests/e2e/prerender.spec.ts`
+
+Le scénario vérifie dans Chromium, Firefox et WebKit que le titre et les sections
+s’affichent avec JavaScript désactivé. Il utilise Tab et Entrée pour activer
+« Aller au contenu » et contrôler le focus du contenu principal, puis suit la
+tabulation jusqu’au résumé de Mouv’Air et vérifie que son étude de cas s’ouvre avec
+Entrée.
+
+### `tests/e2e/accessibility.spec.ts`
+
+Ce test utilise `@axe-core/playwright` pour appliquer les règles `label` et
+`color-contrast` à la page compilée dans Chromium. Il vérifie que les deux règles
+s’appliquent au contenu et signale chaque violation avec les éléments concernés.
+Un scénario émule la réduction des animations avant le chargement et vérifie que
+le logo garde sa transformation au focus, puis que la touche Entrée ramène à l’accueil.
+
+### `tests/e2e/navigation.spec.ts`
+
+À 320 pixels de large, Playwright vérifie que les cinq liens de la navigation
+sont entièrement visibles et que la page tient dans la largeur de la fenêtre.
+Le clic sur « Contact » doit atteindre `#contact` et placer le titre sous
+l’en-tête. Le mode animations réduites rend le défilement immédiat pour mesurer
+la position finale du titre.
 
 ### `public/favicon.svg`
 

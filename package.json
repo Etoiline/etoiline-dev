@@ -9,6 +9,8 @@
     "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "lint": "oxlint",
     "test": "node --test tests/*.test.mjs",
+    "test:e2e": "npm run build && playwright test --project=chromium",
+    "test:e2e:cross-browser": "npm run build && playwright test --project=firefox --project=webkit",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,6 +19,8 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

@@ -38,6 +38,10 @@ function ProjectImage({ project }: ProjectCardProps): JSX.Element {
       height={project.image.height}
       loading="lazy"
       decoding="async"
+      ref={(image) => {
+        // Le navigateur peut avoir reçu l’erreur sur le HTML pré-rendu avant l’hydratation.
+        if (image?.complete && image.naturalWidth === 0) setImageUnavailable(true)
+      }}
       onError={() => setImageUnavailable(true)}
     />
   )
