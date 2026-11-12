@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.3.2 - 2026-11-12
+
 - Run CI checks on pull requests targeting dev.
 - Test keyboard navigation and contact in Firefox and WebKit, including the skip-link focus fix.
 - Test contact rate-limit feedback and check error and success message contrast with axe.
